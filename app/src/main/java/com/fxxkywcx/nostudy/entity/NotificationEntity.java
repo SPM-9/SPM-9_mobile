@@ -11,6 +11,8 @@ public class NotificationEntity implements Serializable{
     private String title;
     private String body;
     private Date uploadTime;
+    public static final int TASK = 0;
+    public static final int ANNOUNCEMENT = 1;
 
     public NotificationEntity() {
     }
