@@ -16,10 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetNotifications {
+public class GetNotifications extends NetworkPackage{
     private final static GetNotifications instance = new GetNotifications();
-    private static final String url = "http://" + Final.tomcatSocket + "/YiWangNoChangXue" + "/GetNotification";
-    private GetNotifications() {}
+    private final String url = servletUrl + "/GetNotification";
+    private GetNotifications() {
+        super();
+    }
     public static GetNotifications getInstance() {
         return instance;
     }
@@ -29,13 +31,11 @@ public class GetNotifications {
     public static final int ALL = 2;
 
     // arg2
-    public static final int SUCCEED = 0;
-    public static final int NETWORK_FAILURE = 1;
     public static final int NO_MORE = 2;
+
     private final String TAG = "GetNotifications";
-    private final Gson gson = new GsonBuilder().setDateFormat(Final.format.toPattern()).create();
-    public static final int loadMoreCount = 2;
-    public static final int firstLoadCount = 3;
+    private static final int loadMoreCount = 2;
+    private static final int firstLoadCount = 3;
 
     public void getLastNotif(Handler handler) {
         OkHttpClient okp = InternetUtils.okpClient;
@@ -64,7 +64,8 @@ public class GetNotifications {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    onFailure(call, new IOException());
+                    String message = "Request Unsuccessful " + response.code();
+                    onFailure(call, new IOException(message));
                     return;
                 }
                 List<NotificationEntity> respList;

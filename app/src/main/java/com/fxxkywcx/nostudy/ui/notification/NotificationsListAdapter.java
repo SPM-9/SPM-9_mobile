@@ -1,6 +1,7 @@
 package com.fxxkywcx.nostudy.ui.notification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.activities.AnnouncementInfoActivity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.utils.ViewUtils;
 import org.jetbrains.annotations.NotNull;
@@ -40,10 +42,20 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<NotificationH
 
                 int position = notifHolder.getAdapterPosition();
                 NotificationEntity notification = notifList.get(position);
+                Intent jump = null;
+                // 按待办事项类型跳转至对应的Activity
+                switch (notification.getNotifType()) {
+                    case NotificationEntity.TASK:
+//                        jump = new Intent(context, StudyTaskInfo.class);
+                        break;
+                    case NotificationEntity.ANNOUNCEMENT:
+                        jump = new Intent(context, AnnouncementInfoActivity.class);
+                }
+                if (jump == null)
+                    return;
 
-//                Intent startNotifInfoActivity = new Intent(context, NotificationInfoActivity.class);
-//                startNotifInfoActivity.putExtra("notification", notification);
-//                context.startActivity(startNotifInfoActivity);
+                jump.putExtra("notification", notification);
+                context.startActivity(jump);
             }
         });
         return notifHolder;

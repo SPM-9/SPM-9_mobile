@@ -36,13 +36,13 @@
                 android:id="@+id/notifItem_title"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:text="待办事件类型"/>
+                android:text="@string/test_notification_title"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/notifItem_body"
                 android:textSize="15sp"
-                android:text="待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文"/>
+                android:text="@string/test_notification_body"/>
 
         </LinearLayout>
 
