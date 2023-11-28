@@ -33,7 +33,7 @@ public class GetNotifications {
     public static final int NETWORK_FAILURE = 1;
     public static final int NO_MORE = 2;
     private final String TAG = "GetNotifications";
-    private final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private final Gson gson = new GsonBuilder().setDateFormat(Final.format.toPattern()).create();
     public static final int loadMoreCount = 2;
     public static final int firstLoadCount = 3;
 

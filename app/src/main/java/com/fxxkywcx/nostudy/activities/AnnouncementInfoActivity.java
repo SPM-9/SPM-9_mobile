@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.fxxkywcx.nostudy.R;
 
-public class NotificationInfoActivity extends AppCompatActivity {
+public class AnnouncementInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_info);
+        setContentView(R.layout.activity_announcement_info);
     }
 }

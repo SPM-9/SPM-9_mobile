@@ -6,11 +6,23 @@
     android:orientation="vertical"
     android:id="@+id/notifItem_item">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notifItem_date"
+        android:layout_gravity="center_horizontal"
+        android:textSize="13sp"
+        android:text="1919-8-10 11:45"
+        android:layout_marginTop="20dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/notifItem_itemPad"
         android:background="@color/translucent_gray">
         <LinearLayout
             android:layout_width="match_parent"
