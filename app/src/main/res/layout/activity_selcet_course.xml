@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.homeSubFunctions.SelcetCourse">
+
+    <Button
+            android:text="返回"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/select_course_button_back"
+            app:layout_constraintBottom_toTopOf="@+id/select_course_guidelineH1"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/select_course_guidelineV1"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintVertical_bias="0.456"/>
+    <TextView
+            android:text="选课状态：未选课"
+            android:layout_width="418dp"
+            android:layout_height="315dp" android:id="@+id/select_course_textView_status"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571" app:layout_constraintTop_toTopOf="@+id/select_course_guidelineH1"
+            app:layout_constraintBottom_toTopOf="@+id/select_course_guidelineH2" android:textAllCaps="false" android:textSize="34sp"
+            android:textAlignment="center" app:layout_constraintVertical_bias="1.0"/>
+    <Button
+            android:text="选课"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/select_course_button_select"
+            app:layout_constraintTop_toTopOf="@+id/select_course_guidelineH2" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/select_course_guidelineH1"
+            app:layout_constraintGuide_percent="0.11080711"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/select_course_guidelineH2"
+            app:layout_constraintGuide_begin="505dp"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:layout_constraintGuide_begin="123dp" android:id="@+id/select_course_guidelineV1"/>
+    <TextView
+            android:text="选课"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/select_course_textView_title"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/select_course_guidelineH1" android:textSize="24sp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
