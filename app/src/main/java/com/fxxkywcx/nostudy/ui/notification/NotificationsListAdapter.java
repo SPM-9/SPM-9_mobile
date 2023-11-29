@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.activities.AnnouncementInfoActivity;
+import com.fxxkywcx.nostudy.activities.StudyTaskInfoActivity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.utils.ViewUtils;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +47,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<NotificationH
                 // 按待办事项类型跳转至对应的Activity
                 switch (notification.getNotifType()) {
                     case NotificationEntity.TASK:
-//                        jump = new Intent(context, StudyTaskInfo.class);
+                        jump = new Intent(context, StudyTaskInfoActivity.class);
                         break;
                     case NotificationEntity.ANNOUNCEMENT:
                         jump = new Intent(context, AnnouncementInfoActivity.class);
