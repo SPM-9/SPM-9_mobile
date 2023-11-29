@@ -2,24 +2,23 @@ package com.fxxkywcx.nostudy.network;
 
 import android.os.Handler;
 import android.os.Message;
-import com.fxxkywcx.nostudy.entity.AnnouncementEntity;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class GetAnnouncementInfos extends NetworkPackage{
-    private final static GetAnnouncementInfos instance = new GetAnnouncementInfos();
-    private final String url = servletUrl + "/GetAnnouncementInfo";
-    private GetAnnouncementInfos() {}
-
-    public static GetAnnouncementInfos getInstance() {
+public class GetStudyTaskInfos extends NetworkPackage{
+    private final static GetStudyTaskInfos instance = new GetStudyTaskInfos();
+    private final String url = servletUrl + "/GetStudyTaskInfo";
+    private GetStudyTaskInfos() {}
+    public static GetStudyTaskInfos getInstance() {
         return instance;
     }
 
-    public void getAnnouncementInfo(Handler handler, int annId) {
+    public void getStudyTaskInfo(Handler handler, int taskId) {
         FormBody body = new FormBody.Builder()
-                .add("annId", String.valueOf(annId))
+                .add("taskId", String.valueOf(taskId))
                 .build();
         Request req = new Request.Builder()
                 .url(url)
@@ -46,8 +45,8 @@ public class GetAnnouncementInfos extends NetworkPackage{
                 msg.arg2 = SUCCEED;
                 if (response.body() != null) {
                     String json = response.body().string();
-                    AnnouncementEntity announcement = gson.fromJson(json, AnnouncementEntity.class);
-                    msg.obj = announcement;
+                    StudyTaskEntity task = gson.fromJson(json, StudyTaskEntity.class);
+                    msg.obj = task;
                 } else {
                     msg.obj = null;
                 }

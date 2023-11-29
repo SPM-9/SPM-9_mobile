@@ -3,11 +3,7 @@ package com.fxxkywcx.nostudy.network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
-import com.fxxkywcx.nostudy.utils.InternetUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
@@ -38,8 +34,6 @@ public class GetNotifications extends NetworkPackage{
     private static final int firstLoadCount = 3;
 
     public void getLastNotif(Handler handler) {
-        OkHttpClient okp = InternetUtils.okpClient;
-
         FormBody body = new FormBody.Builder()
                 .add("operation", "getLast")
                 .add("refreshCount", String.valueOf(firstLoadCount))
@@ -48,7 +42,7 @@ public class GetNotifications extends NetworkPackage{
                 .url(url)
                 .post(body)
                 .build();
-        Call call = okp.newCall(req);
+        Call call = okpClient.newCall(req);
 
 
         call.enqueue(new Callback() {
@@ -94,8 +88,6 @@ public class GetNotifications extends NetworkPackage{
     }
 
     public void getPreviousNotif(Handler handler, int index) {
-        OkHttpClient okp = InternetUtils.okpClient;
-
         FormBody body = new FormBody.Builder()
                 .add("operation", "getPrevious")
                 .add("lastIndex", String.valueOf(index))
@@ -105,7 +97,7 @@ public class GetNotifications extends NetworkPackage{
                 .url(url)
                 .post(body)
                 .build();
-        Call call = okp.newCall(req);
+        Call call = okpClient.newCall(req);
 
 
         call.enqueue(new Callback() {

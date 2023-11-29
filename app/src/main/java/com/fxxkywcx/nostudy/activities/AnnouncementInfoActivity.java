@@ -1,6 +1,5 @@
 package com.fxxkywcx.nostudy.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,7 @@ import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.entity.AnnouncementEntity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
-import com.fxxkywcx.nostudy.utils.InternetUtils;
+import com.fxxkywcx.nostudy.utils.InternetToasts;
 
 public class AnnouncementInfoActivity extends AppCompatActivity {
     TextView title;
@@ -46,7 +45,7 @@ public class AnnouncementInfoActivity extends AppCompatActivity {
             public boolean handleMessage(@NonNull Message msg) {
                 int status = msg.arg2;
                 if (status == GetAnnouncementInfos.NETWORK_FAILURE) {
-                    InternetUtils.NoInternetToast(announcementInfoActivity);
+                    InternetToasts.NoInternetToast(announcementInfoActivity);
                 } else {
                     AnnouncementEntity announcement = (AnnouncementEntity) msg.obj;
                     if (announcement == null)

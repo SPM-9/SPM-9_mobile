@@ -13,7 +13,7 @@ import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.databinding.FragmentNotificationBinding;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.network.GetNotifications;
-import com.fxxkywcx.nostudy.utils.InternetUtils;
+import com.fxxkywcx.nostudy.utils.InternetToasts;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -57,7 +57,7 @@ public class NotificationFragment extends Fragment {
             public boolean handleMessage(@NonNull Message msg) {
                 int status = msg.arg2;
                 if (status == GetNotifications.NETWORK_FAILURE) {
-                    InternetUtils.NoInternetToast(binding.getRoot().getContext());
+                    InternetToasts.NoInternetToast(binding.getRoot().getContext());
                 } else {
                     List<NotificationEntity> respList = (List<NotificationEntity>) msg.obj;
                     list.clear();
@@ -90,7 +90,7 @@ public class NotificationFragment extends Fragment {
                 public boolean handleMessage(@NonNull Message msg) {
                     int status = msg.arg2;
                     if (status == GetNotifications.NETWORK_FAILURE) {
-                        InternetUtils.NoInternetToast(binding.getRoot().getContext());
+                        InternetToasts.NoInternetToast(binding.getRoot().getContext());
                         refreshLayout.finishRefresh(false);
                     } else {
                         List<NotificationEntity> respList = (List<NotificationEntity>) msg.obj;
@@ -117,7 +117,7 @@ public class NotificationFragment extends Fragment {
                 public boolean handleMessage(@NonNull Message msg) {
                     int status = msg.arg2;
                     if (status == GetNotifications.NETWORK_FAILURE) {
-                        InternetUtils.NoInternetToast(binding.getRoot().getContext());
+                        InternetToasts.NoInternetToast(binding.getRoot().getContext());
                         refreshLayout.finishLoadMore(false);
                     } else {
                         List<NotificationEntity> respList = (List<NotificationEntity>) msg.obj;
