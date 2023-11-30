@@ -7,7 +7,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
-public class StoreStudyTaskFile extends FileIO{
+public class StoreStudyTaskFile extends FileIOPackage {
     private static StoreStudyTaskFile instance;
     private StoreStudyTaskFile(Context context) {
         super(context);

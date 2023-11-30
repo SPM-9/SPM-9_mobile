@@ -20,21 +20,18 @@
             android:exported="false"
             android:label="学习任务详情"/>
         <activity
-                android:name=".ui.home.homeSubFunctions.Forum"
+                android:name=".activities.ForumActivity"
                 android:exported="false"/>
         <activity
-                android:name=".ui.home.homeSubFunctions.Download"
-                android:exported="false"/>
-        <activity
-                android:name=".ui.home.homeSubFunctions.Clock"
-                android:exported="false"/>
-        <activity
-                android:name=".ui.home.homeSubFunctions.demo"
+                android:name=".activities.ResourceDownloadActivity"
                 android:exported="false"
-                android:label="@string/title_activity_demo"
-                android:theme="@style/Theme.NoStudy"/>
+                android:label="资源下载"/>
         <activity
-                android:name=".ui.home.homeSubFunctions.SelcetCourse"
+                android:name=".activities.ClockActivity"
+                android:exported="false"
+                android:label="讨论区"/>
+        <activity
+                android:name=".activities.SelectCourseActivity"
                 android:exported="false"/>
         <activity
                 android:name=".activities.AnnouncementInfoActivity"

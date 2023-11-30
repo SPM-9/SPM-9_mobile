@@ -1,14 +1,14 @@
-package com.fxxkywcx.nostudy.ui.home.homeSubFunctions;
+package com.fxxkywcx.nostudy.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.fxxkywcx.nostudy.R;
 
-public class Clock extends AppCompatActivity {
+public class SelectCourseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clock);
+        setContentView(R.layout.activity_selcet_course);
     }
 }

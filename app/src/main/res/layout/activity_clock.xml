@@ -5,49 +5,29 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.homeSubFunctions.SelcetCourse">
-
-    <Button
-            android:text="返回"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/forum_button_back"
-            app:layout_constraintBottom_toTopOf="@+id/forum_guidelineH1"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/forum_guidelineV1"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.457"
-            app:layout_constraintVertical_bias="0.456"/>
-    <androidx.constraintlayout.widget.Guideline
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/forum_guidelineH1"
-            app:layout_constraintGuide_percent="0.11080711"/>
-    <androidx.constraintlayout.widget.Guideline
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="123dp" android:id="@+id/forum_guidelineV1"/>
-    <TextView
-            android:text="讨论区"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/forum_textView_title"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/forum_guidelineH1" android:textSize="24sp"/>
+        tools:context=".activities.SelectCourseActivity">
     <HorizontalScrollView
             android:layout_width="348dp"
             android:layout_height="571dp"
-            app:layout_constraintTop_toTopOf="@+id/forum_guidelineH1" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492" app:layout_constraintVertical_bias="0.341"
             android:id="@+id/forum_HorizontalScrollView">
-        <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
-                      android:orientation="vertical" android:id="@+id/forum_HorizontalScrollView_LinearLayout">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/forum_HorizontalScrollView_LinearLayout">
             <TextView
                     android:text="讨论内容1"
                     android:layout_width="900px"
-                    android:layout_height="wrap_content" android:id="@+id/textView2"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"/>
             <TextView
                     android:text="该父容器是一个HorizontalScrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textView3"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView3"/>
         </LinearLayout>
     </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

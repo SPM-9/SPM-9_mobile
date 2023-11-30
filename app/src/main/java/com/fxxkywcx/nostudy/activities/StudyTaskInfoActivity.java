@@ -13,7 +13,7 @@ import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
-import com.fxxkywcx.nostudy.file_io.FileIO;
+import com.fxxkywcx.nostudy.file_io.FileIOPackage;
 import com.fxxkywcx.nostudy.file_io.StoreStudyTaskFile;
 import com.fxxkywcx.nostudy.network.DownloadStudyTaskFile;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
@@ -119,7 +119,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 int status = msg.arg2;
-                if (status == FileIO.IO_ERROR) {
+                if (status == FileIOPackage.IO_ERROR) {
                     IOToasts.IOFailedToast(studyTaskInfoActivity);
                 } else {
                     IOToasts.IOSuccessToast(studyTaskInfoActivity);
