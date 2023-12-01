@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.entity.CommitEntity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.StoreStudyTaskFile;
 import com.fxxkywcx.nostudy.network.DownloadStudyTaskFile;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
+import com.fxxkywcx.nostudy.network.GetCommit;
 import com.fxxkywcx.nostudy.network.GetStudyTaskInfos;
 import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.IOToasts;
@@ -42,7 +44,8 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
     RelativeLayout commitWindow;
     TextView commitTime;
     TextView commitScore;
-
+    Handler handler;
+    boolean isCommitted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,32 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
 
 
         taskId = notification.getFori_taskId();
-        Handler handler = new Handler(new Handler.Callback() {
+
+        Handler getCommitHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                int status = msg.arg2;
+                if (status == GetStudyTaskInfos.NETWORK_FAILURE) {
+                    InternetToasts.NoInternetToast(studyTaskInfoActivity);
+                } else {
+                    if (msg.obj == null) {
+                        commitWindow.setVisibility(View.GONE);
+                        isCommitted = false;
+                    } else {
+                        CommitEntity commit = (CommitEntity) msg.obj;
+                        commitTime.setText(Final.format.format(commit.getUploadTime()));
+                        if (commit.getResult() == null)
+                            commitScore.setText("未评分");
+                        else
+                            commitScore.setText(String.valueOf(commit.getResult()));
+                        isCommitted = true;
+                    }
+                }
+                return true;
+            }
+        });
+
+        handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 int status = msg.arg2;
@@ -96,18 +124,26 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                     startTime.setText(Final.format.format(studyTask.getStartTime()));
                     ddl.setText(Final.format.format(studyTask.getEndTime()));
 
-                    // TODO: 2023/11/30 发起okhttp请求，获取提交记录，如果有则修改文字，无则隐藏该视图
-                    commitWindow.setVisibility(View.GONE);
-
+                    GetCommit.getInstance().getCommit(getCommitHandler, 1, taskId);
                 }
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         GetStudyTaskInfos.getInstance().getStudyTaskInfo(handler, taskId);
     }
 
     public void Commit(View view) {
+        if (isCommitted)
+            return;
+        Intent intent = new Intent(studyTaskInfoActivity, CommitActivity.class);
+        intent.putExtra("taskId", taskId);
+        startActivity(intent);
     }
 
     public void GetCommitInfo(View view) {

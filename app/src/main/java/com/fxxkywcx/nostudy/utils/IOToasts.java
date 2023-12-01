@@ -13,4 +13,9 @@ public class IOToasts {
         Toast.makeText(context, "保存失败", Toast.LENGTH_LONG)
                 .show();
     }
+
+    public static void ReadFailedToast(Context context) {
+        Toast.makeText(context, "读取文件失败，请检查程序权限", Toast.LENGTH_LONG)
+                .show();
+    }
 }

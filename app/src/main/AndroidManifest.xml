@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,10 @@
         android:theme="@style/Theme.NoStudy"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.CommitActivity"
+            android:exported="false"
+            android:label="提交"/>
         <activity
             android:name=".activities.StudyTaskInfoActivity"
             android:exported="false"

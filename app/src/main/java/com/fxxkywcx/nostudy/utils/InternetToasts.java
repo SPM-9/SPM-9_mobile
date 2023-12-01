@@ -23,4 +23,9 @@ public class InternetToasts {
         Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG)
                 .show();
     }
+
+    public static void UploadSuccessToast(Context context) {
+        Toast.makeText(context, "上传成功", Toast.LENGTH_LONG)
+                .show();
+    }
 }
