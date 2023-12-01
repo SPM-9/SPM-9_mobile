@@ -10,6 +10,6 @@ public class NetworkPackage {
     public static final int SUCCEED = 0;
     public static final int NETWORK_FAILURE = 1;
     protected final Gson gson = new GsonBuilder().setDateFormat(Final.format.toPattern()).create();
-    protected final String servletUrl = "http://" + Final.tomcatSocket;// + "/YiWangNoChangXue";
+    protected final String servletUrl = "http://" + Final.tomcatSocket + "/YiWangNoChangXue";
     protected final OkHttpClient okpClient = new OkHttpClient();
 }
