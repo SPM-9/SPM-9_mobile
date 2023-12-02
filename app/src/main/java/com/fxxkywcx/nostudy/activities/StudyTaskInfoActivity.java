@@ -1,14 +1,17 @@
 package com.fxxkywcx.nostudy.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.FileProvider;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.entity.CommitEntity;
@@ -23,6 +26,7 @@ import com.fxxkywcx.nostudy.network.GetStudyTaskInfos;
 import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.IOToasts;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
+import java.io.File;
 
 public class StudyTaskInfoActivity extends AppCompatActivity {
     private final StudyTaskInfoActivity studyTaskInfoActivity;
@@ -158,7 +162,19 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                 if (status == FileIO.IO_ERROR) {
                     IOToasts.IOFailedToast(studyTaskInfoActivity);
                 } else {
-                    IOToasts.IOSuccessToast(studyTaskInfoActivity);
+                    Log.e("dir: ", studyTaskInfoActivity.getFilesDir().getAbsolutePath());
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    File filePointer = (File) msg.obj;
+                    Uri fileUri;
+                    //Android 7.0之后，分享文件需要授予临时访问权限
+                    fileUri = FileProvider.getUriForFile(studyTaskInfoActivity, "com.fxxkywcx.app.fileprovider", filePointer);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//给目标文件临时授权
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//系统会检查当前所有已创建的Task中是否有该要启动的Activity的Task;
+                    // 若有，则在该Task上创建Activity；若没有则新建具有该Activity属性的Task，并在该新建的Task上创建Activity。
+                    intent.setDataAndType(fileUri, getContentResolver().getType(fileUri));
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -176,9 +192,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                     fileName = task.getFileName();
                     file = task.getFile();
 
-                    // TODO: 2023/11/29 跳转打开方式
-
-                    IOToasts.IOSuccessToast(StudyTaskInfoActivity.this);
+                    InternetToasts.DownloadSuccessToast(StudyTaskInfoActivity.this);
                     StoreStudyTaskFile.getInstance(studyTaskInfoActivity).storeStudyTaskFile(storeHandler, fileName, file);
                 }
 

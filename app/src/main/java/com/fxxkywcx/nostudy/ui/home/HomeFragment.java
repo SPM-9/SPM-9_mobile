@@ -46,12 +46,12 @@ public class HomeFragment extends Fragment {
     private final String[] flipperText = {
             "我超，初音未来！",
             "原神，启动！",
-            "关注嘉然喵，关注嘉然谢谢喵~"
+            "关注ASOUL喵，关注ASOUL谢谢喵~"
     };
     private final String[] flipperADLink = {
             "https://space.bilibili.com/399918500?spm_id_from=333.337.0.0",
             "https://ys.mihoyo.com/",
-            "https://space.bilibili.com/672328094?spm_id_from=333.337.0.0"
+            "https://live.bilibili.com/22637261?broadcast_type=0&is_room_feed=1&spm_id_from=333.999.to_liveroom.0.click&live_from=86002"
     };
     Handler nextAD;
 
