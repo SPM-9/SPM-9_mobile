@@ -1,6 +1,7 @@
 package com.fxxkywcx.nostudy;
 
 import android.os.Bundle;
+import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -31,4 +32,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    public void JumpToWarning(View view) {
+    }
+
+    public void JumpToScore(View view) {
+    }
+
+    public void JumpToHomework(View view) {
+    }
+
+    public void JumpToExam(View view) {
+    }
+
+    public void JumpToChat(View view) {
+    }
+
+    public void JumpToResourceDownload(View view) {
+    }
+
+    public void JumpToSign(View view) {
+    }
+
+    public void JumpToChooseCourse(View view) {
+    }
 }
