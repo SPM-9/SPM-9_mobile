@@ -1,7 +1,10 @@
 package com.fxxkywcx.nostudy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -54,5 +57,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToChooseCourse(View view) {
+    }
+
+    public void modifypwd(View view) {
+    }
+
+    public void exit(View view) {
+    }
+
+    public void about(View view) {
+        Intent intent = new Intent(this, AboutInfoActivity.class);
+        startActivity(intent);
     }
 }

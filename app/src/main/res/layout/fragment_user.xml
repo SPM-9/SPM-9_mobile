@@ -27,6 +27,7 @@
     <Button
         android:id="@+id/user_modify_password"
         android:text="修改密码"
+        android:onClick="modifypwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -36,6 +37,7 @@
     <Button
         android:id="@+id/user_exit"
         android:text="退出登录"
+        android:onClick="exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -43,6 +45,7 @@
     <Button
         android:id="@+id/user_about_info"
         android:text="关于"
+        android:onClick="about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
