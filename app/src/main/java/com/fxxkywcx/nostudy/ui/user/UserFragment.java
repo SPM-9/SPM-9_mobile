@@ -24,7 +24,7 @@ public class UserFragment extends Fragment {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.baseline_cancel_24);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pic_1);
         imageView= (MyImageView) root.findViewById(R.id.user_image);
         imageView.setBitmap(bitmap);
 
