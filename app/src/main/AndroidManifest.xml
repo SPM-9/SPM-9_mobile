@@ -30,6 +30,14 @@
             android:exported="false"
             android:label="公告详情"/>
         <activity
+            android:name=".activities.LoginActivity"
+            android:exported="false"
+            android:label="登录界面"/>
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:exported="false"
+            android:label="注册界面"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
