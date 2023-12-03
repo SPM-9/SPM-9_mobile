@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.databinding.FragmentHomeBinding;
 
@@ -99,6 +100,8 @@ public class HomeFragment extends Fragment {
             Uri uri = Uri.parse("android.resource://" + context.getPackageName() + "/" + id);
             Glide.with(context)
                     .load(uri)
+                    .asGif()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(imageView);
         }
         return imageView;
