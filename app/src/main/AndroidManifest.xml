@@ -42,6 +42,7 @@
             android:exported="false"
             android:label="@string/app_name"/>
         <activity
+            android:theme="@style/Theme.NoStudy.NoActionBar"
             android:name=".activities.StartupActivity"
             android:exported="true"
             android:label="@string/app_name">

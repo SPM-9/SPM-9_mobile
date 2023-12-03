@@ -10,6 +10,7 @@ import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.MainActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
+import com.fxxkywcx.nostudy.entity.UserEntity;
 
 import java.util.Random;
 import java.util.Timer;
@@ -32,6 +33,21 @@ public class StartupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_startup);
 
 
+        if (!Final.needADAndLogin) {
+            UserEntity user = new UserEntity();
+            user.setUid(7);
+            user.setUserName("DebugUser");
+            user.setPassword("debug");
+            user.setNickName("测试用户");
+            user.setEmail("fxxkywcx@debug.com");
+            user.setMoney(0);
+            user.setChosenCourse(true);
+            Variable.currentUser = user;
+
+            startActivity(new Intent(StartupActivity.this, MainActivity.class));
+            finish();
+            return;
+        }
 
         Random rand = new Random();
         sel_AD = rand.nextInt(ad.length);
