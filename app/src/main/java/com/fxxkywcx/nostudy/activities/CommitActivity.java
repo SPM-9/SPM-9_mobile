@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.entity.CommitEntity;
 import com.fxxkywcx.nostudy.entity.FileEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
@@ -102,8 +103,7 @@ public class CommitActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: 2023/12/2 此处userId暂时设为1，等到账户系统做完之后再修改
-        UploadCommit.getInstance().uploadCommit(handler, commit, 1);
+        UploadCommit.getInstance().uploadCommit(handler, commit, Variable.currentUser.getUid());
     }
 
     @Override

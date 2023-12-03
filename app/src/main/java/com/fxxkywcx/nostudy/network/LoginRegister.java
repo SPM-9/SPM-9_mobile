@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class LoginRegister extends NetworkPackage {
     private final static LoginRegister instance = new LoginRegister();
-    private final String urlLogin = servletUrl + "/Login";
-    private final String urlRegister = servletUrl + "/Register";
+    private final String urlLogin = servletUrl + "/UserLogin";
+    private final String urlRegister = servletUrl + "/UserRegister";
     public static final int LOGIN_SUCCESS = 0;
     public static final int LOGIN_FAILED = 1;
     public static final int REGISTER_SUCCESS = 0;
@@ -46,6 +46,7 @@ public class LoginRegister extends NetworkPackage {
                 if (!response.isSuccessful()) {
                     String message = "Request Unsuccessful " + response.code();
                     onFailure(call, new IOException(message));
+                    return; // TODO: 2023/12/4 这是所有的enqueue callback函数都存在的bug，以后有时间再修
                 }
 
                 Message msg = Message.obtain();

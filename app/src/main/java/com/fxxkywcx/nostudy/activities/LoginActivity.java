@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.fxxkywcx.nostudy.MainActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.entity.UserEntity;
@@ -60,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     waiting.cancel();
                     LoginRegisterViews.LoginSuccess(loginActivity);
-                    finish();
+
+                    startActivity(new Intent(loginActivity, MainActivity.class));
                 }
             }
             return true;
@@ -73,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         UserEntity user = new UserEntity();
         user.setUserName(userName.getText().toString());
-        user.setPassword(userName.getText().toString());
+        user.setPassword(password.getText().toString());
 
         waiting = LoginRegisterViews.getWaitingAlert(loginActivity)
                 .show();

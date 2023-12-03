@@ -14,6 +14,7 @@ import android.os.Bundle;
 import androidx.core.content.FileProvider;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.entity.CommitEntity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
@@ -128,7 +129,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                     startTime.setText(Final.format.format(studyTask.getStartTime()));
                     ddl.setText(Final.format.format(studyTask.getEndTime()));
 
-                    GetCommit.getInstance().getCommit(getCommitHandler, 1, taskId);
+                    GetCommit.getInstance().getCommit(getCommitHandler, Variable.currentUser.getUid(), taskId);
                 }
                 return true;
             }

@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
         UserEntity user = new UserEntity();
         user.setUserName(userName.getText().toString());
         user.setPassword(password1.getText().toString());
-        user.setUserName(email.getText().toString());
+        user.setEmail(email.getText().toString());
         user.setNickName(nickName.getText().toString());
 
         waiting = LoginRegisterViews.getWaitingAlert(registerActivity)
