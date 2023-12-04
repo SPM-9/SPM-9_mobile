@@ -59,11 +59,9 @@ public class MainActivity extends AppCompatActivity {
     public void JumpToChooseCourse(View view) {
     }
 
-    public void modifypwd(View view) {
-    }
+    public void modifypassword(View view) {}
 
-    public void exit(View view) {
-    }
+    public void exit(View view) {}
 
     public void about(View view) {
         Intent intent = new Intent(this, AboutInfoActivity.class);

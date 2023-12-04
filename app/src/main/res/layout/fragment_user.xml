@@ -27,7 +27,7 @@
     <Button
         android:id="@+id/user_modify_password"
         android:text="修改密码"
-        android:onClick="modifypwd"
+        android:onClick="modifypassword"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
