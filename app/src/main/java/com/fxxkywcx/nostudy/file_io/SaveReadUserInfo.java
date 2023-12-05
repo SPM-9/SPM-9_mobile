@@ -38,6 +38,22 @@ public class SaveReadUserInfo extends FileIO{
         }).start();
     }
 
+    public void DeleteUserLoginInfo(Handler handler) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sp = context.getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+
+                Message msg = Message.obtain();
+                msg.arg2 = SUCCEED;
+                handler.sendMessage(msg);
+            }
+        }).start();
+    }
+
     public static final int NO_AUTOLOGIN_DATA = 0;
     public static final int HAS_AUTOLOGIN_DATA = 1;
 

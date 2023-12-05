@@ -26,6 +26,11 @@ public class LoginRegisterViews {
                 .show();
     }
 
+    public static void Logout(Context context) {
+        Toast.makeText(context, "您已退出登录", Toast.LENGTH_SHORT)
+                .show();
+    }
+
     public static AlertDialog.Builder getWaitingAlert(Context context) {
         return new androidx.appcompat.app.AlertDialog.Builder(context)
                 .setView(R.layout.child_waiting_for_server)

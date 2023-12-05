@@ -1,10 +1,19 @@
 package com.fxxkywcx.nostudy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
+import com.fxxkywcx.nostudy.activities.LoginActivity;
+import com.fxxkywcx.nostudy.file_io.FileIO;
+import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
+import com.fxxkywcx.nostudy.utils.IOToasts;
+import com.fxxkywcx.nostudy.utils.LoginRegisterViews;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,6 +25,10 @@ import com.fxxkywcx.nostudy.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private MainActivity mainActivity;
+    public MainActivity() {
+        this.mainActivity = MainActivity.this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +74,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void modifypassword(View view) {}
 
-    public void exit(View view) {}
+    public void exit(View view) {
+        Handler handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                int status = msg.arg2;
+
+                if (status == FileIO.IO_ERROR) {
+                    IOToasts.IOFailedToast(mainActivity);
+                } else {
+                    Variable.currentUser = null;
+                    LoginRegisterViews.Logout(mainActivity);
+                    startActivity(new Intent(mainActivity, LoginActivity.class));
+                    finish();
+                }
+                return true;
+            }
+        });
+
+        SaveReadUserInfo.getInstance(mainActivity).DeleteUserLoginInfo(handler);
+    }
 
     public void about(View view) {
         Intent intent = new Intent(this, AboutInfoActivity.class);
