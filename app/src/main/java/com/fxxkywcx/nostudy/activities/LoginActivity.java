@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginRegisterViews.LoginSuccess(loginActivity);
 
                     startActivity(new Intent(loginActivity, MainActivity.class));
+                    finish();
                 }
             }
             return true;
