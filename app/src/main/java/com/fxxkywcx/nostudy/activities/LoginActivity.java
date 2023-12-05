@@ -16,8 +16,11 @@ import com.fxxkywcx.nostudy.MainActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.entity.UserEntity;
+import com.fxxkywcx.nostudy.file_io.FileIO;
+import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
 import com.fxxkywcx.nostudy.network.LoginRegister;
 import com.fxxkywcx.nostudy.network.NetworkPackage;
+import com.fxxkywcx.nostudy.utils.IOToasts;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
 import com.fxxkywcx.nostudy.utils.LoginRegisterViews;
 
@@ -31,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     TextView forgetPassword;
     CheckBox agree;
+    CheckBox autoLogin;
     AlertDialog waiting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,46 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.login_password);
         forgetPassword = findViewById(R.id.login_forgetPassword);
         agree = findViewById(R.id.login_agree);
+        autoLogin = findViewById(R.id.login_autoLogin);
+
+        SaveReadUserInfo.getInstance(loginActivity).ReadUserLoginInfo(readAutoLoginHandler);
     }
 
-    Handler handler = new Handler(new Handler.Callback() {
+    Handler readAutoLoginHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            int status = msg.arg2;
+            int hasData = msg.arg1;
+            if (status == FileIO.IO_ERROR) {
+                IOToasts.IOFailedToast(loginActivity);
+            } else {
+                if (hasData == SaveReadUserInfo.HAS_AUTOLOGIN_DATA) {
+                    UserEntity user = (UserEntity) msg.obj;
+                    userName.setText(user.getUserName());
+                    password.setText(user.getPassword());
+                    agree.setChecked(true);
+                    autoLogin.setChecked(false);
+                    Login(agree); // 相当于自动点击了“登录”
+                }
+            }
+
+            return true;
+        }
+    });
+
+    Handler saveAutoLoginHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            int status = msg.arg2;
+            if (status == FileIO.IO_ERROR) {
+                IOToasts.IOFailedToast(loginActivity);
+            }
+
+            return true;
+        }
+    });
+
+    Handler loginHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             int status = msg.arg2;
@@ -58,6 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Variable.currentUser = (UserEntity) msg.obj;
                     Log.e(TAG, Variable.currentUser.toString());
+
+                    if (autoLogin.isChecked())
+                        SaveReadUserInfo.getInstance(loginActivity)
+                                .SaveUserLoginInfo(saveAutoLoginHandler, Variable.currentUser);
 
                     waiting.cancel();
                     LoginRegisterViews.LoginSuccess(loginActivity);
@@ -80,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         waiting = LoginRegisterViews.getWaitingAlert(loginActivity)
                 .show();
 
-        LoginRegister.getInstance().login(handler, user);
+        LoginRegister.getInstance().login(loginHandler, user);
     }
 
     private final int VERIFIED = 0;

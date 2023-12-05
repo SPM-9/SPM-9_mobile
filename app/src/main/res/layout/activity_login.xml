@@ -128,7 +128,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintGuide_begin="426dp"
         android:id="@+id/guideline7"/>
-
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_autoLogin"
+        android:layout_marginStart="20dp"
+        android:text="自动登录"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline5"/>
     <Button
         android:text="注册"
         android:layout_width="wrap_content"
