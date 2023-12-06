@@ -10,6 +10,7 @@ import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.MainActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
+import com.fxxkywcx.nostudy.entity.TeacherEntity;
 import com.fxxkywcx.nostudy.entity.UserEntity;
 
 import java.util.Random;
@@ -43,6 +44,15 @@ public class StartupActivity extends AppCompatActivity {
             user.setMoney(0);
             user.setChosenCourse(true);
             Variable.currentUser = user;
+
+            TeacherEntity teacher = new TeacherEntity();
+            teacher.setTeacherId(1);
+            teacher.setUserName("DebugTeacher");
+            teacher.setPassword("debug");
+            teacher.setNickName("测试老师");
+            teacher.setEmail("fxxkywcx@debug.com");
+            teacher.setMoney(0);
+            Variable.currentTeacher = teacher;
 
             startActivity(new Intent(StartupActivity.this, MainActivity.class));
             finish();

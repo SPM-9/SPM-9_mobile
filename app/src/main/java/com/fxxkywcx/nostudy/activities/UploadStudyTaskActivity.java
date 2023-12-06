@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -24,9 +25,11 @@ import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.ReadUploadFile;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
 import com.fxxkywcx.nostudy.network.UploadCommit;
+import com.fxxkywcx.nostudy.network.UploadStudyTask;
 import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.IOToasts;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
+import com.fxxkywcx.nostudy.utils.UploadStudyTaskToast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +58,8 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
     TimePickerDialog startTimePicker;
     DatePickerDialog endDatePicker;
     TimePickerDialog endTimePicker;
+    Date startDatetime;
+    Date endDatetime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,22 +72,22 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
         body = findViewById(R.id.uploadStudyTask_body);
         studyTaskType = findViewById(R.id.uploadStudyTask_type);
         startDate = findViewById(R.id.uploadStudyTask_startDate);
-        startTime = findViewById(R.id.studyTask_startTime);
+        startTime = findViewById(R.id.uploadStudyTask_startTime);
         endDate = findViewById(R.id.uploadStudyTask_endDate);
         endTime = findViewById(R.id.uploadStudyTask_endTime);
 
         fileWindow.setVisibility(View.GONE);
 
-        Date startDatetime = new Date();
-        Date endDatetime = new Date();
+        startDatetime = new Date();
+        endDatetime = new Date();
 
-        startDatePicker = getDatePicker(startDatetime, startDate);
         startTimePicker = getTimePicker(startDatetime, startTime);
-        endDatePicker = getDatePicker(endDatetime, endDate);
+        startDatePicker = getDatePicker(startDatetime, startDate, startTimePicker);
         endTimePicker = getTimePicker(endDatetime, endTime);
+        endDatePicker = getDatePicker(endDatetime, endDate, endTimePicker);
     }
 
-    private DatePickerDialog getDatePicker(Date date, TextView textView) {
+    private DatePickerDialog getDatePicker(Date date, TextView textView, TimePickerDialog timePicker) {
         Calendar calendar = new GregorianCalendar();
         DatePickerDialog picker = new DatePickerDialog(
                 uploadStudyTaskActivity,
@@ -90,10 +95,11 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        date.setYear(year);
+                        date.setYear(year-1900);
                         date.setMonth(month);
                         date.setDate(dayOfMonth);
                         textView.setText(Final.dateFormat.format(date));
+                        timePicker.show();
                     }
                 },
                 calendar.get(Calendar.YEAR),
@@ -143,6 +149,30 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
     }
 
     public void Upload(View view) {
+        if (startDate.getText().toString().equals("请选择开始日期") ||
+                startTime.getText().toString().equals("请选择开始时间")) {
+            UploadStudyTaskToast.NoStartTimeToast(uploadStudyTaskActivity);
+            return;
+        }
+        if (endDate.getText().toString().equals("请选择结束日期") ||
+                endTime.getText().toString().equals("请选择结束时间")) {
+            UploadStudyTaskToast.NoEndTimeToast(uploadStudyTaskActivity);
+            return;
+        }
+        if (!startDatetime.before(endDatetime)) {
+            UploadStudyTaskToast.StartLaterThanEnd(uploadStudyTaskActivity);
+            return;
+        }
+        Date now = new Date(System.currentTimeMillis());
+        if (startDatetime.before(now) || endDatetime.before(now)) {
+            UploadStudyTaskToast.TimeEarlyThanNow(uploadStudyTaskActivity);
+            return;
+        }
+        if (title.getText().toString().isEmpty()) {
+            UploadStudyTaskToast.NoTitle(uploadStudyTaskActivity);
+            return;
+        }
+
         RadioButton selectType = findViewById(studyTaskType.getCheckedRadioButtonId());
         String type = selectType.getText().toString();
 
@@ -150,6 +180,8 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
         studyTask.setFori_teacherId(Variable.currentTeacher.getTeacherId());
         studyTask.setTitle(title.getText().toString());
         studyTask.setBody(body.getText().toString());
+        studyTask.setStartTime(startDatetime);
+        studyTask.setEndTime(endDatetime);
         if (type.equals("作业模式"))
             studyTask.setTaskType(StudyTaskEntity.HOMEWORK);
         else if (type.equals("考试模式"))
@@ -160,23 +192,22 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
             studyTask.setFile(uploadFile.getFile());
         }
 
+        Handler handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                int status = msg.arg2;
+                if (status == GetAnnouncementInfos.NETWORK_FAILURE) {
+                    InternetToasts.NoInternetToast(uploadStudyTaskActivity);
+                } else {
+                    InternetToasts.UploadSuccessToast(uploadStudyTaskActivity);
+                    finish();
+                }
 
-//        Handler handler = new Handler(new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(@NonNull Message msg) {
-//                int status = msg.arg2;
-//                if (status == GetAnnouncementInfos.NETWORK_FAILURE) {
-//                    InternetToasts.NoInternetToast(uploadStudyTaskActivity);
-//                } else {
-//                    InternetToasts.UploadSuccessToast(uploadStudyTaskActivity);
-//                    finish();
-//                }
-//
-//                return true;
-//            }
-//        });
-//
-//        UploadCommit.getInstance().uploadCommit(handler, commit, Variable.currentUser.getUid());
+                return true;
+            }
+        });
+
+        UploadStudyTask.getInstance().uploadStudyTask(handler, studyTask);
     }
 
     @Override
@@ -230,9 +261,10 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
     }
 
     public void setStartTime(View view) {
-
+        startDatePicker.show();
     }
 
     public void setEndTime(View view) {
+        endDatePicker.show();
     }
 }
