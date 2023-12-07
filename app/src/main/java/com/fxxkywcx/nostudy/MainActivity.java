@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
 import com.fxxkywcx.nostudy.activities.LoginActivity;
+import com.fxxkywcx.nostudy.activities.UploadResourceActivity;
 import com.fxxkywcx.nostudy.activities.UploadStudyTaskActivity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
@@ -83,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToResourceDownload(View view) {
+        if (Variable.currentUser != null) {
+            // 学生端，跳转到资源列表
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到发布资源Activity
+            startActivity(new Intent(mainActivity, UploadResourceActivity.class));
+        }
     }
 
     public void JumpToSign(View view) {

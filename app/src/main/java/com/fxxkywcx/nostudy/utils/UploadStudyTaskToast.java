@@ -28,4 +28,9 @@ public class UploadStudyTaskToast {
         Toast.makeText(context, "请填写标题", Toast.LENGTH_SHORT)
                 .show();
     }
+
+    public static void NoFile(Context context) {
+        Toast.makeText(context, "请选择文件", Toast.LENGTH_SHORT)
+                .show();
+    }
 }

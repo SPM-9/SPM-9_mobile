@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.UploadResourceActivity"
+            android:exported="false"
+            android:label="上传资源"/>
+        <activity
             android:name=".activities.AboutInfoActivity"
             android:exported="false" />
         <activity
