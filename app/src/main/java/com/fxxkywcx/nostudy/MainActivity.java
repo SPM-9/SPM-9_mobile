@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     IOToasts.IOFailedToast(mainActivity);
                 } else {
                     Variable.currentUser = null;
+                    Variable.currentTeacher = null;
                     LoginRegisterViews.Logout(mainActivity);
                     startActivity(new Intent(mainActivity, LoginActivity.class));
                     finish();

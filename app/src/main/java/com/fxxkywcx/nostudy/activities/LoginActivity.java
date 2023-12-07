@@ -6,15 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fxxkywcx.nostudy.MainActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
+import com.fxxkywcx.nostudy.entity.TeacherEntity;
 import com.fxxkywcx.nostudy.entity.UserEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
@@ -35,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgetPassword;
     CheckBox agree;
     CheckBox autoLogin;
+    RadioGroup loginType;
     AlertDialog waiting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPassword = findViewById(R.id.login_forgetPassword);
         agree = findViewById(R.id.login_agree);
         autoLogin = findViewById(R.id.login_autoLogin);
+        loginType = findViewById(R.id.login_type);
 
         SaveReadUserInfo.getInstance(loginActivity).ReadUserLoginInfo(readAutoLoginHandler);
     }
@@ -59,9 +60,22 @@ public class LoginActivity extends AppCompatActivity {
                 IOToasts.IOFailedToast(loginActivity);
             } else {
                 if (hasData == SaveReadUserInfo.HAS_AUTOLOGIN_DATA) {
-                    UserEntity user = (UserEntity) msg.obj;
-                    userName.setText(user.getUserName());
-                    password.setText(user.getPassword());
+                    int userType = msg.what;
+                    RadioButton userLogin = findViewById(R.id.login_userLogin);
+                    RadioButton teacherLogin = findViewById(R.id.login_teacherLogin);
+                    if (userType == LoginRegister.USER_LOGIN) {
+                        UserEntity user = (UserEntity) msg.obj;
+                        userName.setText(user.getUserName());
+                        password.setText(user.getPassword());
+                        userLogin.setChecked(true);
+                        teacherLogin.setChecked(false);
+                    } else if (userType == LoginRegister.TEACHER_LOGIN) {
+                        TeacherEntity teacher = (TeacherEntity) msg.obj;
+                        userName.setText(teacher.getUserName());
+                        password.setText(teacher.getPassword());
+                        userLogin.setChecked(false);
+                        teacherLogin.setChecked(true);
+                    }
                     agree.setChecked(true);
                     autoLogin.setChecked(false);
                     Login(agree); // 相当于自动点击了“登录”
@@ -97,12 +111,20 @@ public class LoginActivity extends AppCompatActivity {
                     waiting.cancel();
                     LoginRegisterViews.UsernamePasswordWrong(loginActivity);
                 } else {
-                    Variable.currentUser = (UserEntity) msg.obj;
-                    Log.e(TAG, Variable.currentUser.toString());
+                    Variable.currentTeacher = (TeacherEntity) msg.obj;
+                    int userType = msg.what;
 
                     if (autoLogin.isChecked())
-                        SaveReadUserInfo.getInstance(loginActivity)
-                                .SaveUserLoginInfo(saveAutoLoginHandler, Variable.currentUser);
+                        if (userType == LoginRegister.USER_LOGIN)
+                            SaveReadUserInfo.getInstance(loginActivity)
+                                    .SaveUserLoginInfo(saveAutoLoginHandler,
+                                            Variable.currentUser.getUserName(), Variable.currentUser.getPassword(),
+                                            userType);
+                        else if (userType == LoginRegister.TEACHER_LOGIN)
+                            SaveReadUserInfo.getInstance(loginActivity)
+                                    .SaveUserLoginInfo(saveAutoLoginHandler,
+                                            Variable.currentTeacher.getUserName(), Variable.currentTeacher.getPassword(),
+                                            userType);
 
                     waiting.cancel();
                     LoginRegisterViews.LoginSuccess(loginActivity);
@@ -119,14 +141,27 @@ public class LoginActivity extends AppCompatActivity {
         if (CheckReadyLogin() != VERIFIED) {
             return;
         }
-        UserEntity user = new UserEntity();
-        user.setUserName(userName.getText().toString());
-        user.setPassword(password.getText().toString());
+        RadioButton selectType = findViewById(loginType.getCheckedRadioButtonId());
+        String type = selectType.getText().toString();
+        if (type.equals("用户登录")) {
+            UserEntity user = new UserEntity();
+            user.setUserName(userName.getText().toString());
+            user.setPassword(password.getText().toString());
 
-        waiting = LoginRegisterViews.getWaitingAlert(loginActivity)
-                .show();
+            waiting = LoginRegisterViews.getWaitingAlert(loginActivity)
+                    .show();
 
-        LoginRegister.getInstance().login(loginHandler, user);
+            LoginRegister.getInstance().login(loginHandler, user);
+        } else if (type.equals("教师登录")) {
+            TeacherEntity teacher = new TeacherEntity();
+            teacher.setUserName(userName.getText().toString());
+            teacher.setPassword(password.getText().toString());
+
+            waiting = LoginRegisterViews.getWaitingAlert(loginActivity)
+                    .show();
+
+            LoginRegister.getInstance().teacherLogin(loginHandler, teacher);
+        }
     }
 
     private final int VERIFIED = 0;

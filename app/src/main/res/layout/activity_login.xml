@@ -190,6 +190,33 @@
 
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="511dp"
+        android:id="@+id/guideline4"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/login_type"
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintBottom_toBottomOf="@id/guideline4">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户登录"
+            android:checked="true"
+            android:id="@+id/login_userLogin"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="教师登录"
+            android:id="@+id/login_teacherLogin"/>
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

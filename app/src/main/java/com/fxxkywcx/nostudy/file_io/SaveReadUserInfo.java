@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import androidx.annotation.NonNull;
+import com.fxxkywcx.nostudy.entity.TeacherEntity;
 import com.fxxkywcx.nostudy.entity.UserEntity;
+import com.fxxkywcx.nostudy.network.LoginRegister;
 import com.fxxkywcx.nostudy.utils.IOToasts;
 
 public class SaveReadUserInfo extends FileIO{
@@ -21,14 +23,15 @@ public class SaveReadUserInfo extends FileIO{
         return instance;
     }
 
-    public void SaveUserLoginInfo(Handler handler, UserEntity user) {
+    public void SaveUserLoginInfo(Handler handler, String userName, String password, int userType) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 SharedPreferences sp = context.getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("userName", user.getUserName());
-                editor.putString("password", user.getPassword());
+                editor.putInt("userType", userType);
+                editor.putString("userName", userName);
+                editor.putString("password", password);
                 editor.commit();
 
                 Message msg = Message.obtain();
@@ -66,12 +69,21 @@ public class SaveReadUserInfo extends FileIO{
                 SharedPreferences sp = context.getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                 if (sp.contains("userName") && sp.contains("password")) {
                     msg.arg1 = HAS_AUTOLOGIN_DATA;
+                    int userType = sp.getInt("userType", LoginRegister.USER_LOGIN);
                     String userName = sp.getString("userName", null);
                     String password = sp.getString("password", null);
-                    UserEntity user = new UserEntity();
-                    user.setUserName(userName);
-                    user.setPassword(password);
-                    msg.obj = user;
+                    if (userType == LoginRegister.USER_LOGIN) {
+                        UserEntity user = new UserEntity();
+                        user.setUserName(userName);
+                        user.setPassword(password);
+                        msg.obj = user;
+                    } else if (userType == LoginRegister.TEACHER_LOGIN) {
+                        TeacherEntity teacher = new TeacherEntity();
+                        teacher.setUserName(userName);
+                        teacher.setPassword(password);
+                        msg.obj = teacher;
+                    }
+                    msg.what = userType;
                 } else {
                     msg.arg1 = NO_AUTOLOGIN_DATA;
                     msg.obj = null;
