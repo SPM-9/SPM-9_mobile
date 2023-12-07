@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -59,8 +60,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
+        if (Variable.currentTeacher != null)
+            root = inflater.inflate(R.layout.fragment_teacher_home, container, false);
+        else if (Variable.currentUser != null)
+            root = inflater.inflate(R.layout.fragment_home, container, false);
         context = root.getContext();
 
         flipper = root.findViewById(R.id.home_viewFlipper);

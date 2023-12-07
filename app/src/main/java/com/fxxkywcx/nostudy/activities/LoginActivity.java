@@ -111,20 +111,24 @@ public class LoginActivity extends AppCompatActivity {
                     waiting.cancel();
                     LoginRegisterViews.UsernamePasswordWrong(loginActivity);
                 } else {
-                    Variable.currentTeacher = (TeacherEntity) msg.obj;
                     int userType = msg.what;
 
+                    if (userType == LoginRegister.USER_LOGIN)
+                        Variable.currentUser = (UserEntity) msg.obj;
+                    else if (userType == LoginRegister.TEACHER_LOGIN)
+                        Variable.currentTeacher = (TeacherEntity) msg.obj;
                     if (autoLogin.isChecked())
-                        if (userType == LoginRegister.USER_LOGIN)
+                        if (userType == LoginRegister.USER_LOGIN) {
                             SaveReadUserInfo.getInstance(loginActivity)
                                     .SaveUserLoginInfo(saveAutoLoginHandler,
                                             Variable.currentUser.getUserName(), Variable.currentUser.getPassword(),
                                             userType);
-                        else if (userType == LoginRegister.TEACHER_LOGIN)
+                        } else if (userType == LoginRegister.TEACHER_LOGIN) {
                             SaveReadUserInfo.getInstance(loginActivity)
                                     .SaveUserLoginInfo(saveAutoLoginHandler,
                                             Variable.currentTeacher.getUserName(), Variable.currentTeacher.getPassword(),
                                             userType);
+                        }
 
                     waiting.cancel();
                     LoginRegisterViews.LoginSuccess(loginActivity);

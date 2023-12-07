@@ -8,8 +8,11 @@ import android.os.Message;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
 import com.fxxkywcx.nostudy.activities.LoginActivity;
+import com.fxxkywcx.nostudy.activities.UploadStudyTaskActivity;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
 import com.fxxkywcx.nostudy.utils.IOToasts;
@@ -55,9 +58,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToHomework(View view) {
+        if (Variable.currentUser != null) {
+            // 学生端，跳转到作业列表
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到发布作业Activity
+            Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
+            intent.putExtra("taskType", StudyTaskEntity.HOMEWORK);
+            startActivity(new Intent(mainActivity, UploadStudyTaskActivity.class));
+        }
     }
 
     public void JumpToExam(View view) {
+        if (Variable.currentUser != null) {
+            // 学生端，跳转到作业列表
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到发布作业Activity
+            Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
+            intent.putExtra("taskType", StudyTaskEntity.EXAM);
+            startActivity(intent);
+        }
     }
 
     public void JumpToChat(View view) {

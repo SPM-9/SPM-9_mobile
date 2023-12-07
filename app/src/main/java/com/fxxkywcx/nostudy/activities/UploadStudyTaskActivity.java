@@ -78,6 +78,19 @@ public class UploadStudyTaskActivity extends AppCompatActivity {
 
         fileWindow.setVisibility(View.GONE);
 
+        // 通过获取入口名称，更改默认选项
+        RadioButton hwkRadio = findViewById(R.id.uploadStudyTask_homework);
+        RadioButton examRadio = findViewById(R.id.uploadStudyTask_exam);
+        Intent intent = getIntent();
+        int type = intent.getIntExtra("taskType", StudyTaskEntity.HOMEWORK);
+        if (type == StudyTaskEntity.HOMEWORK) {
+            hwkRadio.setChecked(true);
+            examRadio.setChecked(false);
+        } else if (type == StudyTaskEntity.EXAM) {
+            hwkRadio.setChecked(false);
+            examRadio.setChecked(true);
+        }
+
         startDatetime = new Date();
         endDatetime = new Date();
 
