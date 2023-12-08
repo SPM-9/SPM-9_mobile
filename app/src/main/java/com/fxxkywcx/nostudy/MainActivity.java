@@ -9,10 +9,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
-import com.fxxkywcx.nostudy.activities.LoginActivity;
-import com.fxxkywcx.nostudy.activities.UploadResourceActivity;
-import com.fxxkywcx.nostudy.activities.UploadStudyTaskActivity;
+import com.fxxkywcx.nostudy.activities.*;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
@@ -125,5 +122,14 @@ public class MainActivity extends AppCompatActivity {
     public void about(View view) {
         Intent intent = new Intent(this, AboutInfoActivity.class);
         startActivity(intent);
+    }
+
+    public void JumpToAnnouncement(View view) {
+        if (Variable.currentUser != null) {
+            // 学生端，不响应
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到发布公告Activity
+            startActivity(new Intent(mainActivity, UploadAnnouncementActivity.class));
+        }
     }
 }

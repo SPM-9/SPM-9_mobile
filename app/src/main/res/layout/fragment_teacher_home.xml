@@ -130,11 +130,23 @@
         android:text="发起\n预警"
         android:layout_margin="3dp"
         android:id="@+id/home_warning"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/home_announcement"
         app:layout_constraintTop_toTopOf="@+id/home_guideline2"
         app:layout_constraintBottom_toBottomOf="@id/home_guideline3"
         app:layout_constraintStart_toEndOf="@id/home_homework"
         android:onClick="JumpToWarning"/>
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="发起公告"
+        android:layout_margin="3dp"
+        android:id="@+id/home_announcement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/home_guideline2"
+        app:layout_constraintBottom_toBottomOf="@id/home_guideline3"
+        app:layout_constraintStart_toEndOf="@id/home_warning"
+        android:onClick="JumpToAnnouncement"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:orientation="horizontal"
