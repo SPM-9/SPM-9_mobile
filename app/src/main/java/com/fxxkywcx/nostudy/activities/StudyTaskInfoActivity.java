@@ -28,6 +28,7 @@ import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.IOToasts;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
 import java.io.File;
+import java.util.Date;
 
 public class StudyTaskInfoActivity extends AppCompatActivity {
     private final StudyTaskInfoActivity studyTaskInfoActivity;
@@ -49,8 +50,11 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
     RelativeLayout commitWindow;
     TextView commitTime;
     TextView commitScore;
+    RelativeLayout commitButton;
     Handler handler;
     boolean isCommitted;
+    Date startDatetime;
+    Date ddlDatetime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
         commitWindow = findViewById(R.id.studyTask_commit);
         commitTime = findViewById(R.id.studyTask_commitTime);
         commitScore = findViewById(R.id.studyTask_commitScore);
+        commitButton = findViewById(R.id.studyTask_commitButton);
 
 
         taskId = notification.getFori_taskId();
@@ -128,6 +133,11 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                         taskType.setText("考试模式");
                     startTime.setText(Final.format.format(studyTask.getStartTime()));
                     ddl.setText(Final.format.format(studyTask.getEndTime()));
+                    startDatetime = studyTask.getStartTime();
+                    ddlDatetime = studyTask.getEndTime();
+                    Date now = new Date();
+                    if (now.after(ddlDatetime) || now.before(startDatetime))
+                        commitButton.setVisibility(View.GONE);
 
                     GetCommit.getInstance().getCommit(getCommitHandler, Variable.currentUser.getUid(), taskId);
                 }
@@ -146,6 +156,10 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
     public void Commit(View view) {
         if (isCommitted)
             return;
+        Date now = new Date();
+        if (now.after(ddlDatetime) || now.before(startDatetime)) // 未开始、过期作业不允许提交
+            commitButton.setVisibility(View.GONE);
+
         Intent intent = new Intent(studyTaskInfoActivity, CommitActivity.class);
         intent.putExtra("taskId", taskId);
         startActivity(intent);
