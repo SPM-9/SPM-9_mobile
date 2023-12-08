@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToResourceDownload(View view) {
+
     }
 
     public void JumpToSign(View view) {
