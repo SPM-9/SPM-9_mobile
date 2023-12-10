@@ -1,7 +1,11 @@
 package com.fxxkywcx.nostudy;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import org.junit.Test;
+import org.junit.runner.manipulation.Ordering;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
 import static org.junit.Assert.*;
 
 /**
