@@ -197,7 +197,8 @@
         android:layout_height="40dp"
         android:background="@color/text_background"
         android:layout_alignParentBottom="true"
-        android:onClick="Commit">
+        android:onClick="Commit"
+        android:id="@+id/studyTask_commitButton">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

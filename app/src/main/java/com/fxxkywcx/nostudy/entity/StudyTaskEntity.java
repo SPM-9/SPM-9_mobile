@@ -102,7 +102,6 @@ public class StudyTaskEntity implements Serializable {
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", fileName='" + fileName + '\'' +
-                ", file=" + Arrays.toString(file) +
                 ", fileSize=" + fileSize +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +

@@ -1,6 +1,7 @@
 package com.fxxkywcx.nostudy.file_io;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import org.apache.commons.io.IOUtils;
@@ -22,15 +23,6 @@ public class StoreStudyTaskFile extends FileIO{
         String fileDir = publicAppDir + "/" + fileName;
         File downloadFile = new File(fileDir);
 
-        // 处理文件重名
-        int cnt = 1;
-        while (downloadFile.exists()) {
-            fileDir = publicAppDir + "/" + cnt + " - " + fileName;
-            downloadFile = new File(fileDir);
-            cnt++;
-        }
-
-        File finalDownloadFile = downloadFile;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -39,9 +31,10 @@ public class StoreStudyTaskFile extends FileIO{
                 BufferedOutputStream bos = null;
                 try {
                     bis = new BufferedInputStream(new ByteArrayInputStream(file));
-                    bos = new BufferedOutputStream(new FileOutputStream(finalDownloadFile));
+                    bos = new BufferedOutputStream(new FileOutputStream(downloadFile));
                     IOUtils.copy(bis, bos);
                     msg.arg2 = SUCCEED;
+                    msg.obj = downloadFile;
                 } catch (IOException e) {
                     msg.arg2 = IO_ERROR;
                     e.printStackTrace();

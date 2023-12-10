@@ -1,26 +1,34 @@
 package com.fxxkywcx.nostudy.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.FileProvider;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
+import com.fxxkywcx.nostudy.entity.CommitEntity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.StoreStudyTaskFile;
 import com.fxxkywcx.nostudy.network.DownloadStudyTaskFile;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
+import com.fxxkywcx.nostudy.network.GetCommit;
 import com.fxxkywcx.nostudy.network.GetStudyTaskInfos;
 import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.IOToasts;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
+import java.io.File;
+import java.util.Date;
 
 public class StudyTaskInfoActivity extends AppCompatActivity {
     private final StudyTaskInfoActivity studyTaskInfoActivity;
@@ -42,7 +50,11 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
     RelativeLayout commitWindow;
     TextView commitTime;
     TextView commitScore;
-
+    RelativeLayout commitButton;
+    Handler handler;
+    boolean isCommitted;
+    Date startDatetime;
+    Date ddlDatetime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +79,36 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
         commitWindow = findViewById(R.id.studyTask_commit);
         commitTime = findViewById(R.id.studyTask_commitTime);
         commitScore = findViewById(R.id.studyTask_commitScore);
+        commitButton = findViewById(R.id.studyTask_commitButton);
 
 
         taskId = notification.getFori_taskId();
-        Handler handler = new Handler(new Handler.Callback() {
+
+        Handler getCommitHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                int status = msg.arg2;
+                if (status == GetStudyTaskInfos.NETWORK_FAILURE) {
+                    InternetToasts.NoInternetToast(studyTaskInfoActivity);
+                } else {
+                    if (msg.obj == null) {
+                        commitWindow.setVisibility(View.GONE);
+                        isCommitted = false;
+                    } else {
+                        CommitEntity commit = (CommitEntity) msg.obj;
+                        commitTime.setText(Final.format.format(commit.getUploadTime()));
+                        if (commit.getResult() == null)
+                            commitScore.setText("未评分");
+                        else
+                            commitScore.setText(String.valueOf(commit.getResult()));
+                        isCommitted = true;
+                    }
+                }
+                return true;
+            }
+        });
+
+        handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 int status = msg.arg2;
@@ -95,19 +133,36 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                         taskType.setText("考试模式");
                     startTime.setText(Final.format.format(studyTask.getStartTime()));
                     ddl.setText(Final.format.format(studyTask.getEndTime()));
+                    startDatetime = studyTask.getStartTime();
+                    ddlDatetime = studyTask.getEndTime();
+                    Date now = new Date();
+                    if (now.after(ddlDatetime) || now.before(startDatetime))
+                        commitButton.setVisibility(View.GONE);
 
-                    // TODO: 2023/11/30 发起okhttp请求，获取提交记录，如果有则修改文字，无则隐藏该视图
-                    commitWindow.setVisibility(View.GONE);
-
+                    GetCommit.getInstance().getCommit(getCommitHandler, Variable.currentUser.getUid(), taskId);
                 }
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         GetStudyTaskInfos.getInstance().getStudyTaskInfo(handler, taskId);
     }
 
     public void Commit(View view) {
+        if (isCommitted)
+            return;
+        Date now = new Date();
+        if (now.after(ddlDatetime) || now.before(startDatetime)) // 未开始、过期作业不允许提交
+            commitButton.setVisibility(View.GONE);
+
+        Intent intent = new Intent(studyTaskInfoActivity, CommitActivity.class);
+        intent.putExtra("taskId", taskId);
+        startActivity(intent);
     }
 
     public void GetCommitInfo(View view) {
@@ -122,7 +177,19 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                 if (status == FileIO.IO_ERROR) {
                     IOToasts.IOFailedToast(studyTaskInfoActivity);
                 } else {
-                    IOToasts.IOSuccessToast(studyTaskInfoActivity);
+                    Log.e("dir: ", studyTaskInfoActivity.getFilesDir().getAbsolutePath());
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    File filePointer = (File) msg.obj;
+                    Uri fileUri;
+                    //Android 7.0之后，分享文件需要授予临时访问权限
+                    fileUri = FileProvider.getUriForFile(studyTaskInfoActivity, "com.fxxkywcx.app.fileprovider", filePointer);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);//给目标文件临时授权
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//系统会检查当前所有已创建的Task中是否有该要启动的Activity的Task;
+                    // 若有，则在该Task上创建Activity；若没有则新建具有该Activity属性的Task，并在该新建的Task上创建Activity。
+                    intent.setDataAndType(fileUri, getContentResolver().getType(fileUri));
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -140,9 +207,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                     fileName = task.getFileName();
                     file = task.getFile();
 
-                    // TODO: 2023/11/29 跳转打开方式
-
-                    IOToasts.IOSuccessToast(StudyTaskInfoActivity.this);
+                    InternetToasts.DownloadSuccessToast(StudyTaskInfoActivity.this);
                     StoreStudyTaskFile.getInstance(studyTaskInfoActivity).storeStudyTaskFile(storeHandler, fileName, file);
                 }
 
