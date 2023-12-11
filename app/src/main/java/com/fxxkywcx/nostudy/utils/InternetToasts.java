@@ -23,4 +23,24 @@ public class InternetToasts {
         Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG)
                 .show();
     }
+
+    public static void RequestSuccessToast(Context context) {
+        Toast.makeText(context, "请求选课成功", Toast.LENGTH_LONG)
+                .show();
+    }
+
+    public static void RequestFailureToast(Context context) {
+        Toast.makeText(context, "该学生未发送选课请求", Toast.LENGTH_LONG)
+                .show();
+    }
+
+    public static void AllowSuccessToast(Context context) {
+        Toast.makeText(context, "审批成功", Toast.LENGTH_LONG)
+                .show();
+    }
+
+    public static void unAllowSuccessToast(Context context) {
+        Toast.makeText(context, "不审批成功", Toast.LENGTH_LONG)
+                .show();
+    }
 }
