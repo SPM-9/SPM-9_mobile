@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.databinding.FragmentNotificationBinding;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.network.GetNotifications;
@@ -35,6 +37,12 @@ public class NotificationFragment extends Fragment {
 
         binding = FragmentNotificationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        if (Variable.currentUser != null && !Variable.currentUser.isChosenCourse()) {
+            ConstraintLayout allViews = root.findViewById(R.id.notification_all);
+            allViews.setVisibility(View.GONE);
+            InternetToasts.notChosenCourse(root.getContext());
+        }
 
         notifList = root.findViewById(R.id.notification_list);
         RefreshLayout refreshLayout = root.findViewById(R.id.notification_refreshLayout);

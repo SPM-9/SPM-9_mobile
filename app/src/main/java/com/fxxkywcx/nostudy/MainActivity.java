@@ -14,6 +14,7 @@ import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
 import com.fxxkywcx.nostudy.utils.IOToasts;
+import com.fxxkywcx.nostudy.utils.InternetToasts;
 import com.fxxkywcx.nostudy.utils.LoginRegisterViews;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,14 +51,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToWarning(View view) {
+        if (Variable.currentUser != null) {
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到预警系统
+            }
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到发起预警系统
+        }
     }
 
     public void JumpToScore(View view) {
+        if (Variable.currentUser != null) {
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到成绩查询
+            }
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，不跳转
+        }
     }
 
     public void JumpToHomework(View view) {
         if (Variable.currentUser != null) {
-            // 学生端，跳转到作业列表
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到作业列表
+            }
         } else if (Variable.currentTeacher != null) {
             // 教师端，跳转到发布作业Activity
             Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
@@ -68,7 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void JumpToExam(View view) {
         if (Variable.currentUser != null) {
-            // 学生端，跳转到作业列表
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到考试列表
+            }
         } else if (Variable.currentTeacher != null) {
             // 教师端，跳转到发布作业Activity
             Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
@@ -78,11 +109,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToChat(View view) {
+        if (Variable.currentUser != null) {
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到讨论区
+            }
+        } else {
+            // 教师端，跳转到讨论区
+        }
     }
 
     public void JumpToResourceDownload(View view) {
         if (Variable.currentUser != null) {
-            // 学生端，跳转到资源列表
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到资源列表
+            }
         } else if (Variable.currentTeacher != null) {
             // 教师端，跳转到发布资源Activity
             startActivity(new Intent(mainActivity, UploadResourceActivity.class));
@@ -90,9 +136,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToSign(View view) {
+        if (Variable.currentUser != null) {
+            if (!Variable.currentUser.isChosenCourse()) {
+                InternetToasts.notChosenCourse(mainActivity);
+                startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+            } else {
+                // 学生端，跳转到签到界面
+            }
+        } else {
+            // 教师端，跳转到发起签到
+        }
     }
 
     public void JumpToChooseCourse(View view) {
+        if (Variable.currentUser != null) {
+            // 学生端，跳转到选课activity
+            startActivity(new Intent(mainActivity, ChooseClassActivity.class));
+        } else if (Variable.currentTeacher != null) {
+            // 教师端，跳转到确认选课
+            startActivity(new Intent(mainActivity, ClassPermissionActivity.class));
+        }
     }
 
     public void modifypassword(View view) {}

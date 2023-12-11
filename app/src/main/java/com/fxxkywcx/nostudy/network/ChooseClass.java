@@ -9,10 +9,9 @@ import java.io.IOException;
 public class ChooseClass extends NetworkPackage {
     private final static ChooseClass instance = new ChooseClass();
 
-//    private final String url1 = servletUrl + "/checkClass";
-    private final String url1 = "http://192.168.137.1:8080" + "/YiWangNoChangXue" + "/checkClass";
-    private final String url2 = "http://192.168.137.1:8080" + "/YiWangNoChangXue"  + "/checkRequest";
-    private final String url3 = "http://192.168.137.1:8080" + "/YiWangNoChangXue"  + "/selectRequest";
+    private final String url1 = servletUrl + "/checkClass";
+    private final String url2 = servletUrl + "/checkRequest";
+    private final String url3 = servletUrl + "/selectRequest";
 
     private ChooseClass() {}
 

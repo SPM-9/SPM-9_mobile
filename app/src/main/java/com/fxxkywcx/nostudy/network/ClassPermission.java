@@ -7,8 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 public class ClassPermission extends NetworkPackage{
     private final static ClassPermission instance = new ClassPermission();
-    private final String url1 = "http://192.168.137.1:8080" + "/YiWangNoChangXue" + "/classpermission";
-    private final String url2 = "http://192.168.137.1:8080" + "/YiWangNoChangXue" + "/modifychooseclass";
+    private final String url1 = servletUrl + "/classpermission";
+    private final String url2 = servletUrl + "/modifychooseclass";
 
     private ClassPermission(){}
 

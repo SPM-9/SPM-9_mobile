@@ -48,4 +48,9 @@ public class InternetToasts {
         Toast.makeText(context, "不审批成功", Toast.LENGTH_LONG)
                 .show();
     }
+
+    public static void notChosenCourse(Context context) {
+        Toast.makeText(context, "未选课，请选课", Toast.LENGTH_SHORT)
+                .show();
+    }
 }

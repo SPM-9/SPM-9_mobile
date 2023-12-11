@@ -18,6 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ChooseClassActivity"
+            android:exported="false"
+            android:label="选课"/>
+        <activity
+            android:name=".activities.ClassPermissionActivity"
+            android:exported="false"
+            android:label="确认选课"/>
+        <activity
             android:name=".activities.UploadAnnouncementActivity"
             android:exported="false"
             android:label="发布公告" />

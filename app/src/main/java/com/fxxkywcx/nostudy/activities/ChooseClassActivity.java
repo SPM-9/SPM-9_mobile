@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.network.ChooseClass;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
 import static com.fxxkywcx.nostudy.Variable.currentUser;
@@ -75,6 +76,7 @@ public class ChooseClassActivity extends AppCompatActivity {
                     showstate.setText("选课状态：已选课");
                     showwait.setText("");
                     button.setVisibility(View.INVISIBLE);
+                    currentUser.setChosenCourse(true);
                 }
                 return true;
             }
