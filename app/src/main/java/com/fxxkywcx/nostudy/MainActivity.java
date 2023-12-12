@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.fxxkywcx.nostudy.activities.*;
+import com.fxxkywcx.nostudy.activities.Homework.HomeworkActivity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 InternetToasts.notChosenCourse(mainActivity);
                 startActivity(new Intent(mainActivity, ChooseClassActivity.class));
             } else {
+                Intent intent=new Intent(mainActivity, HomeworkActivity.class);
+                startActivity(intent);
                 // 学生端，跳转到作业列表
             }
         } else if (Variable.currentTeacher != null) {
