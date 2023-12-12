@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.fxxkywcx.nostudy.entity.HomeworkEntity;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.google.gson.reflect.TypeToken;
 
 
@@ -74,7 +74,7 @@ public class GetHomeworks extends NetworkPackage{
                     onFailure(call, new IOException(message));
                     return;
                 }
-                List<HomeworkEntity> respList;
+                List<StudyTaskEntity> respList;
 
                 Message msg = Message.obtain();
                 msg.what = LAST;
@@ -82,7 +82,7 @@ public class GetHomeworks extends NetworkPackage{
 
                 if (response.body() != null) {
                     String json = response.body().string();
-                    respList = gson.fromJson(json, new TypeToken<List<HomeworkEntity>>(){}.getType());
+                    respList = gson.fromJson(json, new TypeToken<List<StudyTaskEntity>>(){}.getType());
                     msg.obj = respList;
                     Log.e(TAG, json);
                 }
@@ -126,14 +126,14 @@ public class GetHomeworks extends NetworkPackage{
                     onFailure(call, new IOException());
                     return;
                 }
-                List<HomeworkEntity> respList;
+                List<StudyTaskEntity> respList;
 
                 Message msg = Message.obtain();
                 msg.what = PREVIOUS;
                 msg.arg2 = SUCCEED;
                 if (response.body() != null) {
                     String json = response.body().string();
-                    respList = gson.fromJson(json, new TypeToken<List<HomeworkEntity>>(){}.getType());
+                    respList = gson.fromJson(json, new TypeToken<List<StudyTaskEntity>>(){}.getType());
                     msg.obj = respList;
                 }
                 else {

@@ -62,7 +62,12 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         NotificationEntity notification = (NotificationEntity) intent.getSerializableExtra("notification");
-        if (notification == null) {
+        StudyTaskEntity studyTask = (StudyTaskEntity) intent.getSerializableExtra("studyTask");
+        if (notification != null) {
+            taskId = notification.getFori_taskId();
+        } else if (studyTask != null) {
+            taskId = studyTask.getTaskId();
+        } else {
             finish();
             return;
         }
@@ -82,7 +87,6 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
         commitButton = findViewById(R.id.studyTask_commitButton);
 
 
-        taskId = notification.getFori_taskId();
 
         Handler getCommitHandler = new Handler(new Handler.Callback() {
             @Override

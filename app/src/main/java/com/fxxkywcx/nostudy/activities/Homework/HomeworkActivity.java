@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.fxxkywcx.nostudy.R;
-import com.fxxkywcx.nostudy.entity.HomeworkEntity;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.network.GetHomeworks;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -24,7 +24,7 @@ import java.util.List;
 public class HomeworkActivity extends AppCompatActivity {
     RecyclerView homeworkList;
     HomeworkListAdapter adapter;
-    List<HomeworkEntity> list=new ArrayList<>(45);
+    List<StudyTaskEntity> list=new ArrayList<>(45);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class HomeworkActivity extends AppCompatActivity {
                     //显示一个提示消息，提示用户当前没有网络连接
                     InternetToasts.NoInternetToast(HomeworkActivity.this);
                 }else {
-                    List<HomeworkEntity> respList=(List<HomeworkEntity>) msg.obj;
+                    List<StudyTaskEntity> respList=(List<StudyTaskEntity>) msg.obj;
                     list.clear();
                     list.addAll(respList);
                     //通知适配器数据已经改变，需要更新UI界面
@@ -78,7 +78,7 @@ public class HomeworkActivity extends AppCompatActivity {
                         InternetToasts.NoInternetToast(HomeworkActivity.this);
                         refreshLayout.finishRefresh(false);
                     } else {
-                        List<HomeworkEntity> respList = (List<HomeworkEntity>) msg.obj;
+                        List<StudyTaskEntity> respList = (List<StudyTaskEntity>) msg.obj;
                         list.addAll(respList);
                         adapter.notifyDataSetChanged();
                         homeworkList.setAdapter(adapter);
@@ -106,19 +106,23 @@ public class HomeworkActivity extends AppCompatActivity {
                         InternetToasts.NoInternetToast(HomeworkActivity.this);
                         refreshLayout.finishRefresh(false);
                     } else {
-                        List<HomeworkEntity> respList = (List<HomeworkEntity>) msg.obj;
+                        List<StudyTaskEntity> respList = (List<StudyTaskEntity>) msg.obj;
                         list.addAll(respList);
                         adapter.notifyDataSetChanged();
                         homeworkList.setAdapter(adapter);
                         if (status == GetHomeworks.NO_MORE)
-                            refreshLayout.finishRefreshWithNoMoreData();
+                            refreshLayout.finishLoadMoreWithNoMoreData();
                         else
-                            refreshLayout.finishRefresh(true);
+                            refreshLayout.finishLoadMore(true);
                     }
                     return true;
                 }
             });
-            int lastHomeNotifId=list.get(list.size()-1).getHomeworkId();
+            if (list.isEmpty()) {
+                refreshLayout.finishRefresh(false);
+                return;
+            }
+            int lastHomeNotifId=list.get(list.size()-1).getTaskId();
             GetHomeworks.getInstance().getPreviousHomework(handler,lastHomeNotifId);
         }
     };

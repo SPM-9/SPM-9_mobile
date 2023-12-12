@@ -140,6 +140,10 @@ public class NotificationFragment extends Fragment {
                     return true;
                 }
             });
+            if (list.isEmpty()) {
+                refreshLayout.finishRefresh(false);
+                return;
+            }
             int lastNotifId = list.get(list.size()-1).getNotifId();
             GetNotifications.getInstance().getPreviousNotif(handler, lastNotifId);
         }

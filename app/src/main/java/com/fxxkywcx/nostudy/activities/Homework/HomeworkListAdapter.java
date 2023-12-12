@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.activities.StudyTaskInfoActivity;
-import com.fxxkywcx.nostudy.entity.HomeworkEntity;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.utils.ViewUtils;
 
 import java.text.SimpleDateFormat;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeworkListAdapter extends RecyclerView.Adapter<HomeworkHolder> {
-    List<HomeworkEntity> homeworkList=new ArrayList<>(114);
+    List<StudyTaskEntity> homeworkList=new ArrayList<>(114);
 
-    public HomeworkListAdapter(List<HomeworkEntity> homeworkList) {
+    public HomeworkListAdapter(List<StudyTaskEntity> homeworkList) {
         this.homeworkList = homeworkList;
     }
 
@@ -42,15 +42,11 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<HomeworkHolder> {
                 Context context=v.getContext();
 
                 int position=homeworkHolder.getAdapterPosition();
-                HomeworkEntity homework=homeworkList.get(position);
-                Intent jump=null;
-                jump = new Intent(context, StudyTaskInfoActivity.class);
-                if (jump == null)
-                    return;
-
-                jump.putExtra("homework", homework);
+                StudyTaskEntity homework=homeworkList.get(position);
+                Intent jump = new Intent(context, StudyTaskInfoActivity.class);
+                jump.putExtra("studyTask", homework);
                 context.startActivity(jump);
-                }
+            }
         });
         return homeworkHolder;
     }
@@ -58,17 +54,17 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<HomeworkHolder> {
     // 为条目绑定数据
     @Override
     public void onBindViewHolder(@NonNull HomeworkHolder holder, int position) {
-        HomeworkEntity homework=homeworkList.get(position);
+        StudyTaskEntity homework=homeworkList.get(position);
 
         holder.title.setText(homework.getTitle());
         holder.body.setText(homework.getBody());
-        holder.date.setText(Final.format.format(homework.getUploadTime()));
+        holder.date.setText(Final.format.format(homework.getStartTime()));
 
         if(position!=0){
-            HomeworkEntity previous=homeworkList.get(position-1);
+            StudyTaskEntity previous=homeworkList.get(position-1);
             //获取前一项作业与当前作业时间
-            String previousTime=format.format(previous.getUploadTime());
-            String thisItemTime=format.format(homework.getUploadTime());
+            String previousTime=format.format(previous.getStartTime());
+            String thisItemTime=format.format(homework.getStartTime());
             //如果相同，将当前作业时间隐藏，调整与前一项作业边距
             if(previousTime.equals(thisItemTime)){
                 holder.date.setVisibility(View.GONE);
