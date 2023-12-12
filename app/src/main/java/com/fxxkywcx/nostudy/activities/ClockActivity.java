@@ -25,6 +25,8 @@ import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -129,7 +131,8 @@ public class ClockActivity extends AppCompatActivity {
                     } else {//有签到
                         btnSign.setVisibility(View.VISIBLE);
                         //*目前只实现最先发起的签到
-                        tvStatus.setText("签到id："+userSigns.get(0).getSignId().toString()+"\n签到结束时间："+userSigns.get(0).getEndTime().toString());
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        tvStatus.setText("签到id："+userSigns.get(0).getSignId().toString()+"\n签到结束时间:\n"+format.format(userSigns.get(0).getEndTime()));
                         signId=userSigns.get(0).getSignId();
                         tvStatus.setVisibility(View.VISIBLE);
                     }
