@@ -2,9 +2,10 @@ package com.fxxkywcx.nostudy.entity;
 
 import android.location.Location;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserSignEntity {
+public class UserSignEntity implements Serializable {
     private Integer signId;
     private Integer studentId;
     private Date signTime;

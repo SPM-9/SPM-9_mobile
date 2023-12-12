@@ -32,7 +32,7 @@ public class ClockActivity extends AppCompatActivity {
     Button btnSign;
     TextView tvLocation;
     TextView tvStatus;
-    private Integer signId;
+    private static Integer signId;
     private boolean hasSign = false;
     private boolean isSignSuccess = false;
     private final ClockActivity clockActivity;

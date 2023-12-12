@@ -1,8 +1,9 @@
 package com.fxxkywcx.nostudy.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserSignsEntity {
+public class UserSignsEntity implements Serializable {
     private Integer signId;
     private Integer teacherId;
     private String signUId;
