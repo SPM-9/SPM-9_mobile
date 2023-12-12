@@ -8,13 +8,13 @@
         tools:context=".activities.ClockActivity">
     <Button
             android:text="签到"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/clock_btn_sign"
+            android:layout_width="167dp"
+            android:layout_height="141dp" android:id="@+id/clock_btn_sign"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@+id/guideline"
             android:onClick="sign"
             android:visibility="invisible"
-    />
+            app:layout_constraintVertical_bias="0.807" android:textSize="24sp"/>
     <TextView
             android:text="位置"
             android:layout_width="wrap_content"
@@ -24,25 +24,26 @@
             android:visibility="invisible"
     />
     <TextView
-            android:text="正在向后台请求数据，请稍等。。。"
-            android:layout_width="203dp"
-            android:layout_height="92dp" android:id="@+id/clock_tv_status"
+            android:text="暂无签到，点击刷新"
+            android:layout_width="291dp"
+            android:layout_height="99dp" android:id="@+id/clock_tv_status"
             app:layout_constraintTop_toTopOf="@+id/guideline3" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintVertical_bias="0.241"
+            app:layout_constraintVertical_bias="0.0"
             android:onClick="refreshSign"
             android:visibility="visible"
-    />
+            android:textSize="24sp" android:textAlignment="center" android:textAllCaps="true"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="349dp" android:id="@+id/guideline"/>
+            android:layout_height="wrap_content" app:layout_constraintGuide_begin="451dp" android:id="@+id/guideline"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="429dp" android:id="@+id/guideline2"/>
+            android:layout_height="wrap_content" app:layout_constraintGuide_begin="553dp" android:id="@+id/guideline2"/>
     <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="199dp" android:id="@+id/guideline3"/>
+            android:layout_height="wrap_content" app:layout_constraintGuide_begin="160dp" android:id="@+id/guideline3"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

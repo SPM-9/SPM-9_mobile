@@ -5,8 +5,8 @@ import android.location.Location;
 import java.util.Date;
 
 public class UserSignEntity {
-    private int signId;
-    private int studentId;
+    private Integer signId;
+    private Integer studentId;
     private Date signTime;
     private Location signLocation;
 
@@ -14,13 +14,8 @@ public class UserSignEntity {
     public UserSignEntity() {
     }
 
-    public UserSignEntity(int studentId, Date signTime, Location signLocation) {
-        this.studentId = studentId;
-        this.signTime = signTime;
-        this.signLocation = signLocation;
-    }
 
-    public UserSignEntity(int signId, int studentId, Date signTime, Location signLocation) {
+    public UserSignEntity(Integer signId, Integer studentId, Date signTime, Location signLocation) {
         this.signId = signId;
         this.studentId = studentId;
         this.signTime = signTime;
@@ -31,7 +26,7 @@ public class UserSignEntity {
      * 获取
      * @return studentId
      */
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
@@ -39,7 +34,7 @@ public class UserSignEntity {
      * 设置
      * @param studentId
      */
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -83,7 +78,7 @@ public class UserSignEntity {
      * 获取
      * @return signId
      */
-    public int getSignId() {
+    public Integer getSignId() {
         return signId;
     }
 
@@ -91,7 +86,7 @@ public class UserSignEntity {
      * 设置
      * @param signId
      */
-    public void setSignId(int signId) {
+    public void setSignId(Integer signId) {
         this.signId = signId;
     }
 }
