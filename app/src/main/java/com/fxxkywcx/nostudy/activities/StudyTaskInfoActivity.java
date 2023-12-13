@@ -99,6 +99,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                         commitWindow.setVisibility(View.GONE);
                         isCommitted = false;
                     } else {
+                        commitWindow.setVisibility(View.VISIBLE);
                         CommitEntity commit = (CommitEntity) msg.obj;
                         commitTime.setText(Final.format.format(commit.getUploadTime()));
                         if (commit.getResult() == null)

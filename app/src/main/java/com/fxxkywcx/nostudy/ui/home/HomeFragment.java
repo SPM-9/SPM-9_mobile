@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,14 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.databinding.FragmentHomeBinding;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
+import com.fxxkywcx.nostudy.network.GetNotifications;
+import com.fxxkywcx.nostudy.network.GetTodos;
+import com.fxxkywcx.nostudy.utils.InternetToasts;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    private FragmentActivity rootActivity;
     private FragmentHomeBinding binding;
     private View root;
     private Context context;
@@ -57,9 +69,15 @@ public class HomeFragment extends Fragment {
     };
     Handler nextAD;
 
+    private RecyclerView todoList;
+    private RecyclerView.Adapter todoAdapter;
+    private List<StudyTaskEntity> list = new ArrayList<>(11);
+    private final String[] greet = {"早上好！", "上午好！", "中午好！", "下午好！", "晚上好！"};
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        rootActivity = getActivity();
 
+        // 显示学生和老师不同的视图
         if (Variable.currentTeacher != null)
             root = inflater.inflate(R.layout.fragment_teacher_home, container, false);
         else if (Variable.currentUser != null)
@@ -81,7 +99,58 @@ public class HomeFragment extends Fragment {
 
         flipper.setOnGestureListener(new ADsGestureListener());
 
+
+        if (Variable.currentUser != null) {
+            // RecyclerView
+            todoList = root.findViewById(R.id.home_toDoList);
+            todoAdapter = new ToDoAdapter(context, list);
+            todoList.setAdapter(todoAdapter);
+
+            Handler getToDosHandler = new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(@NonNull Message msg) {
+                    int status = msg.arg2;
+                    if (status == GetNotifications.NETWORK_FAILURE) {
+                        InternetToasts.NoInternetToast(context);
+                    } else {
+                        List<StudyTaskEntity> respList = (List<StudyTaskEntity>) msg.obj;
+                        list.addAll(respList);
+                        todoAdapter.notifyDataSetChanged();
+                        todoList.setAdapter(todoAdapter);
+                    }
+                    return true;
+                }
+            });
+            GetTodos.getInstance().getTodos(getToDosHandler, Variable.currentUser.getUid());
+        }
+
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String title = "";
+        int hour = new Date(System.currentTimeMillis()).getHours();
+        if (6 <= hour && hour < 9)
+            title += greet[0];
+        else if (9 <= hour && hour < 11)
+            title += greet[1];
+        else if (11 <= hour && hour < 13)
+            title += greet[2];
+        else if (13 <= hour && hour < 17)
+            title += greet[3];
+        else
+            title += greet[4];
+
+        // label设置
+        if (Variable.currentTeacher != null) {
+            title += Variable.currentTeacher.getNickName() + "老师";
+            rootActivity.setTitle(title);
+        } else if (Variable.currentUser != null) {
+            title += Variable.currentUser.getNickName() + "同学";
+            rootActivity.setTitle(title);
+        }
     }
 
     @Override

@@ -10,17 +10,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentActivity;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.databinding.FragmentUserBinding;
 
 public class UserFragment extends Fragment {
-
+    private FragmentActivity rootActivity;
     private FragmentUserBinding binding;
     private MyImageView imageView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        rootActivity = getActivity();
+
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -30,6 +33,12 @@ public class UserFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rootActivity.setTitle("我的");
     }
 
     @Override

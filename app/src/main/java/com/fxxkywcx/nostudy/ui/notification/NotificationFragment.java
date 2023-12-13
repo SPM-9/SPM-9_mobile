@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.Variable;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationFragment extends Fragment {
+    private FragmentActivity rootActivity;
     private FragmentNotificationBinding binding;
     RecyclerView notifList;
     NotificationsListAdapter adapter;
@@ -34,6 +36,7 @@ public class NotificationFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        rootActivity = getActivity();
 
         binding = FragmentNotificationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -85,6 +88,12 @@ public class NotificationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rootActivity.setTitle("动态");
     }
 
     OnRefreshListener refreshListener = new OnRefreshListener() {
