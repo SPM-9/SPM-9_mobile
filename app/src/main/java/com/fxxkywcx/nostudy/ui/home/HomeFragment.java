@@ -17,6 +17,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.databinding.FragmentHomeBinding;
 
+import static com.bumptech.glide.Glide.*;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
