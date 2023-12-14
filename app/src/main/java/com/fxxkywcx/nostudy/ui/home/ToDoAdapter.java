@@ -49,7 +49,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoHolder> {
     public void onBindViewHolder(@NonNull @NotNull ToDoHolder holder, int position) {
         StudyTaskEntity studyTask = toDoStudyTasks.get(position);
         holder.title.setText(studyTask.getTitle());
-        holder.date.setText(Final.noSecondFormat.format(studyTask.getStartTime()));
+        holder.date.setText(Final.noSecondFormat.format(studyTask.getEndTime()));
     }
 
     @Override
