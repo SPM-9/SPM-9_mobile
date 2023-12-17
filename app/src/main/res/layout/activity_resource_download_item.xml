@@ -3,13 +3,51 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
                                               android:orientation="horizontal">
-    <ImageView android:layout_width="60dp" android:layout_height="60dp"
-               android:id="@+id/iv"
-               android:contentDescription="TODO"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/tv"
-            android:layout_height="wrap_content"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/studyTask_file"
+            android:background="@color/text_background"
+            android:onClick="GetFile">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_insert_drive_file_24"
+                    android:layout_margin="15dp"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/resource_name"
+                        android:text="示例附件.docx"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/resource_size"
+                        android:text="11.45KB"
+                        android:layout_marginTop="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_download_for_offline_24"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/studyTask_download" android:layout_marginTop="20dp" android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp" android:layout_marginBottom="20dp"/>
+    </RelativeLayout>
 
 
 

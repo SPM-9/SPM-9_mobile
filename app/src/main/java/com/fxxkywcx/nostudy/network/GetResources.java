@@ -3,15 +3,13 @@ package com.fxxkywcx.nostudy.network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import com.fxxkywcx.nostudy.entity.NotificationEntity;
-import com.fxxkywcx.nostudy.entity.ResourceItem;
+import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GetResources extends NetworkPackage{
     private final static GetResources instance = new GetResources();
@@ -63,7 +61,7 @@ public class GetResources extends NetworkPackage{
                     onFailure(call, new IOException(message));
                     return;
                 }
-                ArrayList<ResourceItem> respList;
+                ArrayList<StudyTaskEntity> respList;
 
                 Message msg = Message.obtain();
                 msg.what = LAST;
@@ -71,7 +69,7 @@ public class GetResources extends NetworkPackage{
 
                 if (response.body() != null) {
                     String json = response.body().string();
-                    respList = gson.fromJson(json, new TypeToken<ArrayList<ResourceItem>>(){}.getType());
+                    respList = gson.fromJson(json, new TypeToken<ArrayList<StudyTaskEntity>>(){}.getType());
                     msg.obj = respList;
                     Log.e(TAG, json);
                 }
@@ -79,9 +77,6 @@ public class GetResources extends NetworkPackage{
                     respList = new ArrayList<>();
                     msg.obj = respList;
                 }
-                // 是否全部加载完毕
-                if (respList.size() != firstLoadCount) // 已加载完毕
-                    msg.arg2 = NO_MORE;
 
                 handler.sendMessage(msg);
             }
