@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.Exam.ExamActivity"
+            android:exported="false"
+            android:label="考试列表" />
+        <activity
             android:name=".activities.Homework.HomeworkActivity"
             android:exported="false"
             android:label="作业列表"/>

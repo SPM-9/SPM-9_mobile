@@ -30,8 +30,8 @@ public class GetNotifications extends NetworkPackage{
     public static final int NO_MORE = 2;
 
     private final String TAG = "GetNotifications";
-    private static final int loadMoreCount = 2;
-    private static final int firstLoadCount = 5;
+    private static final int loadMoreCount = 3;
+    private static final int firstLoadCount = 7;
 
     public void getLastNotif(Handler handler) {
         FormBody body = new FormBody.Builder()

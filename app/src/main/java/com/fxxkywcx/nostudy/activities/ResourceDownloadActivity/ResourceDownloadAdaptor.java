@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
@@ -48,9 +49,13 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
         // ...
 
         // 设置点击监听器或执行其他必要的操作
-         holder.setOnClickListener(v -> {
-             // 处理项目点击事件
-         });
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 2023/12/18 点击进入详情页或下载
+            }
+        });
+        // 绑定数据
         ResourceEntity resourceItemEntity=data.get(position);
         holder.textView_name.setText(resourceItemEntity.getFileName());
     }
@@ -61,11 +66,14 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
+        private LinearLayoutCompat item;
         private TextView textView_name;
         private TextView textView_size;
         private ImageView imageView;
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
+
+            item = itemView.findViewById(R.id.resource_item);
             textView_name=itemView.findViewById(R.id.resource_name);
             textView_size=itemView.findViewById(R.id.resource_size);
         }

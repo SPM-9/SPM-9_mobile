@@ -3,33 +3,24 @@ package com.fxxkywcx.nostudy.network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.google.gson.reflect.TypeToken;
-
-
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.Request;
-import okhttp3.Response;
-
-public class GetHomeworks extends NetworkPackage{
-    private final static GetHomeworks instance=new GetHomeworks();
-    private final String url = servletUrl + "/GetHomework";
-    private GetHomeworks(){
+public class GetExam extends NetworkPackage{
+    private final static GetExam instance=new GetExam();
+    private final String url = servletUrl + "/GetExam";
+    private GetExam(){
         super();
     }
 
-    public static GetHomeworks getInstance(){
+    public static GetExam getInstance(){
         return instance;
     }
     public static final int LAST = 0;
@@ -38,7 +29,7 @@ public class GetHomeworks extends NetworkPackage{
 
     // arg2
     public static final int NO_MORE = 2;
-    private final String TAG = "GetHomeworks";
+    private final String TAG = "GetExam";
     private static final int loadMoreCount = 3;
     private static final int firstLoadCount = 6;
 
@@ -98,7 +89,7 @@ public class GetHomeworks extends NetworkPackage{
             }
         });
     }
-    public void getPreviousHomework(android.os.Handler handler, int index) {
+    public void getPreviousHomework(Handler handler, int index) {
         FormBody body=new FormBody.Builder()
                 .add("operation", "getPrevious")
                 .add("lastIndex", String.valueOf(index))
