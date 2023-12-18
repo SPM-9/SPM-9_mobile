@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
 import com.fxxkywcx.nostudy.activities.LoginActivity;
+import com.fxxkywcx.nostudy.activities.ResourceDownloadActivity.ResourceDownloadActivity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
 import com.fxxkywcx.nostudy.file_io.SaveReadUserInfo;
 import com.fxxkywcx.nostudy.utils.IOToasts;
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void JumpToResourceDownload(View view) {
-
+        Intent intent = new Intent(this, ResourceDownloadActivity.class);
+        startActivity(intent);
     }
 
     public void JumpToSign(View view) {

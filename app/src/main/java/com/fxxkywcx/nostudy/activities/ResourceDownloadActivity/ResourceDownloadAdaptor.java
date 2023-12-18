@@ -4,20 +4,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
-import com.fxxkywcx.nostudy.entity.ResourceItemEntity;
+import com.fxxkywcx.nostudy.entity.NotificationEntity;
+import com.fxxkywcx.nostudy.entity.ResourceEntity;
+import com.fxxkywcx.nostudy.utils.ViewUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownloadAdaptor.ItemHolder>{
 
-    private List<ResourceItemEntity> data;
+    private List<ResourceEntity> data=new ArrayList<>();
 
-    public ResourceDownloadAdaptor(List<ResourceItemEntity> data) {
+    public ResourceDownloadAdaptor() {
+    }
+
+    public ResourceDownloadAdaptor(List<ResourceEntity> data) {
         this.data = data;
     }
 
@@ -31,7 +39,7 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ResourceDownloadAdaptor.ItemHolder holder, int position) {
-        ResourceItemEntity item = data.get(position);
+        ResourceEntity item = data.get(position);
 
         // 使用 ResourceItemEntity 中的数据填充 ViewHolder 中的视图
         // 例如：
@@ -40,9 +48,11 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
         // ...
 
         // 设置点击监听器或执行其他必要的操作
-        // holder.itemView.setOnClickListener(v -> {
-        //     // 处理项目点击事件
-        // });
+         holder.setOnClickListener(v -> {
+             // 处理项目点击事件
+         });
+        ResourceEntity resourceItemEntity=data.get(position);
+        holder.textView_name.setText(resourceItemEntity.getFileName());
     }
 
     @Override
@@ -51,12 +61,13 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        private TextView textView_name;
+        private TextView textView_size;
         private ImageView imageView;
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.resource_name);
-            textView=itemView.findViewById(R.id.resource_size);
+            textView_name=itemView.findViewById(R.id.resource_name);
+            textView_size=itemView.findViewById(R.id.resource_size);
         }
     }
 }

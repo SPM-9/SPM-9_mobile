@@ -3,17 +3,19 @@ package com.fxxkywcx.nostudy.network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
+import com.fxxkywcx.nostudy.entity.NotificationEntity;
+import com.fxxkywcx.nostudy.entity.ResourceEntity;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GetResources extends NetworkPackage{
     private final static GetResources instance = new GetResources();
-    private final String url = servletUrl + "/GetResources";
+    private final String url = servletUrl + "/DownloadResource";
     private GetResources() {
         super();
     }
@@ -33,9 +35,7 @@ public class GetResources extends NetworkPackage{
     private static final int firstLoadCount = 3;
 
     public void getResources(Handler handler) {
-        FormBody body = new FormBody.Builder()
-                .add("operation", "getLast")
-                .add("refreshCount", String.valueOf(firstLoadCount))
+        FormBody body = new FormBody.Builder().add("sb","qunima")
                 .build();
         Request req = new Request.Builder()
                 .url(url)
@@ -54,14 +54,13 @@ public class GetResources extends NetworkPackage{
                 handler.sendMessage(msg);
             }
 
-            @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     String message = "Request Unsuccessful " + response.code();
                     onFailure(call, new IOException(message));
                     return;
                 }
-                ArrayList<StudyTaskEntity> respList;
+                List<ResourceEntity> respList;
 
                 Message msg = Message.obtain();
                 msg.what = LAST;
@@ -69,7 +68,7 @@ public class GetResources extends NetworkPackage{
 
                 if (response.body() != null) {
                     String json = response.body().string();
-                    respList = gson.fromJson(json, new TypeToken<ArrayList<StudyTaskEntity>>(){}.getType());
+                    respList = gson.fromJson(json, new TypeToken<List<ResourceEntity>>(){}.getType());
                     msg.obj = respList;
                     Log.e(TAG, json);
                 }
@@ -77,6 +76,9 @@ public class GetResources extends NetworkPackage{
                     respList = new ArrayList<>();
                     msg.obj = respList;
                 }
+                // 是否全部加载完毕
+                if (respList.size() != firstLoadCount) // 已加载完毕
+                    msg.arg2 = NO_MORE;
 
                 handler.sendMessage(msg);
             }
