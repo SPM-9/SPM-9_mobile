@@ -3,13 +3,11 @@ package com.fxxkywcx.nostudy.network;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.entity.UserSignEntity;
 import com.fxxkywcx.nostudy.entity.UserSignsEntity;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.TestOnly;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -20,7 +18,7 @@ public class GetSignInfos extends NetworkPackage{
     private final static GetSignInfos instance = new GetSignInfos();
     private static final String TAG = "GetSignInfos";
     //    private final String url = servletUrl + "/GetSignInfos";
-    private final String url = "http://192.168.1.108:8080/YiWangNoChangXue_war/GetSignInfor";
+    private final String url = "http://192.168.1.106:8080/YiWangNoChangXue_war/GetSignInfor";
 
     private GetSignInfos() {}
     public static GetSignInfos getInstance() {

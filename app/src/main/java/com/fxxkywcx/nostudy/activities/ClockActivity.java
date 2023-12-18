@@ -1,7 +1,5 @@
 package com.fxxkywcx.nostudy.activities;
 
-import android.content.Intent;
-import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -11,21 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
-import com.fxxkywcx.nostudy.Variable;
-import com.fxxkywcx.nostudy.entity.AnnouncementEntity;
-import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.UserSignEntity;
 import com.fxxkywcx.nostudy.entity.UserSignsEntity;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
 import com.fxxkywcx.nostudy.network.GetSignInfos;
 import com.fxxkywcx.nostudy.utils.InternetToasts;
-import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -81,7 +71,10 @@ public class ClockActivity extends AppCompatActivity {
                 } else {
                     String isSuccess = (String) msg.obj;
                     if (isSuccess == null) {//连接成功但未获取到资源
-                        InternetToasts.NoInternetToast(clockActivity);
+//                        InternetToasts.NoInternetToast(clockActivity);
+                        tvStatus.setText("暂无签到");
+                        tvStatus.setVisibility(View.VISIBLE);
+                        btnSign.setVisibility(View.INVISIBLE);
                         return true;
                     } else {//获取成功
                         if (isSuccess.equals("ontime")) {//签到成功
@@ -95,7 +88,7 @@ public class ClockActivity extends AppCompatActivity {
                         }else if (isSuccess.equals("alreadySign")){//已签到
                             tvStatus.setText("已签到，请勿重新签到");
                             tvStatus.setVisibility(View.VISIBLE);
-                            btnSign.setVisibility(View.VISIBLE);
+                            btnSign.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
