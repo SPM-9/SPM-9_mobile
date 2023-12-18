@@ -8,6 +8,9 @@ import android.os.Message;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import com.fxxkywcx.nostudy.activities.AboutInfoActivity;
+import com.fxxkywcx.nostudy.activities.LoginActivity;
+import com.fxxkywcx.nostudy.activities.ResourceDownloadActivity.ResourceDownloadActivity;
 import androidx.fragment.app.Fragment;
 import com.fxxkywcx.nostudy.activities.*;
 import com.fxxkywcx.nostudy.activities.Homework.HomeworkActivity;
@@ -131,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mainActivity, ChooseClassActivity.class));
             } else {
                 // 学生端，跳转到资源列表
+                Intent intent = new Intent(this, ResourceDownloadActivity.class);
+                startActivity(intent);
             }
         } else if (Variable.currentTeacher != null) {
             // 教师端，跳转到发布资源Activity

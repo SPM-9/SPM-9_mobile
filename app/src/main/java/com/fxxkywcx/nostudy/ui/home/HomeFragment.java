@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.bumptech.glide.Glide.*;
+
 public class HomeFragment extends Fragment {
     private FragmentActivity rootActivity;
     private FragmentHomeBinding binding;

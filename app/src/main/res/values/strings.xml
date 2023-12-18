@@ -4,8 +4,16 @@
     <string name="test_announcement_title">公告标题</string>
     <string name="test_studyTask_title">学习任务标题</string>
     <string name="test_commit_title">提交标题</string>
-    <string name="test_notification_body">待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文</string>
-    <string name="test_announcement_body">公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文</string>
-    <string name="test_studyTask_body">学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文</string>
-    <string name="test_commit_body">提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文</string>
+    <string name="test_notification_body">
+        待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文待办事项正文
+    </string>
+    <string name="test_announcement_body">
+        公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文公告正文
+    </string>
+    <string name="test_studyTask_body">
+        学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文学习任务正文
+    </string>
+    <string name="test_commit_body">
+        提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文提交正文
+    </string>
 </resources>
