@@ -92,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 // 学生端，跳转到作业列表
             }
         } else if (Variable.currentTeacher != null) {
-            // 教师端，跳转到发布作业Activity
-            Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
-            intent.putExtra("taskType", StudyTaskEntity.HOMEWORK);
-            startActivity(new Intent(mainActivity, UploadStudyTaskActivity.class));
+            // 教师端，跳转到批改作业Activity
+            startActivity(new Intent(mainActivity, HomeworkActivity.class));
         }
     }
 
@@ -110,10 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         } else if (Variable.currentTeacher != null) {
-            // 教师端，跳转到发布作业Activity
-            Intent intent = new Intent(mainActivity, UploadStudyTaskActivity.class);
-            intent.putExtra("taskType", StudyTaskEntity.EXAM);
-            startActivity(intent);
+            // 教师端，跳转到批改考试Activity
+            startActivity(new Intent(mainActivity, ExamActivity.class));
         }
     }
 
@@ -123,10 +119,12 @@ public class MainActivity extends AppCompatActivity {
                 InternetToasts.notChosenCourse(mainActivity);
                 startActivity(new Intent(mainActivity, ChooseClassActivity.class));
             } else {
-                // 学生端，跳转到讨论区
+                // 学生端，跳转到留言板
             }
         } else {
-            // 教师端，跳转到讨论区
+            // 教师端，跳转到发布作业和考试
+            // TODO: 2023/12/20 发布作业和考试
+            startActivity(new Intent(mainActivity, UploadStudyTaskActivity.class));
         }
     }
 

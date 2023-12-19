@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
+import com.fxxkywcx.nostudy.activities.MarkCommitActivity;
 import com.fxxkywcx.nostudy.activities.StudyTaskInfoActivity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.utils.ViewUtils;
@@ -43,9 +45,15 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<HomeworkHolder> {
 
                 int position=homeworkHolder.getAdapterPosition();
                 StudyTaskEntity homework=homeworkList.get(position);
-                Intent jump = new Intent(context, StudyTaskInfoActivity.class);
-                jump.putExtra("studyTask", homework);
-                context.startActivity(jump);
+                if (Variable.currentTeacher != null) {
+                    Intent jump = new Intent(context, MarkCommitActivity.class);
+                    jump.putExtra("studyTask", homework);
+                    context.startActivity(jump);
+                } else if (Variable.currentUser != null) {
+                    Intent jump = new Intent(context, StudyTaskInfoActivity.class);
+                    jump.putExtra("studyTask", homework);
+                    context.startActivity(jump);
+                }
             }
         });
         return homeworkHolder;

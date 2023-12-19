@@ -91,7 +91,7 @@
                 <Button
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:text="讨论区"
+                    android:text="留言板"
                     android:layout_margin="3dp"
                     android:id="@+id/home_chat"
                     app:layout_constraintTop_toTopOf="parent"
