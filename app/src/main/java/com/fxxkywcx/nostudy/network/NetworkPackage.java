@@ -23,7 +23,7 @@ public class NetworkPackage {
                 @Override
                 public Response intercept(@NotNull Chain chain) throws IOException {
                     Request req = chain.request().newBuilder()
-                            .addHeader("User-Agent", "android")
+                            .addHeader("AndroidApp", "true")
                             .build();
                     Response resp = chain.proceed(req);
                     return resp;
