@@ -18,7 +18,7 @@ public class GetSignInfos extends NetworkPackage{
     private final static GetSignInfos instance = new GetSignInfos();
     private static final String TAG = "GetSignInfos";
     //    private final String url = servletUrl + "/GetSignInfos";
-    private final String url = "http://192.168.1.106:8080/YiWangNoChangXue_war/GetSignInfor";
+    private final String url = servletUrl + "/GetSignInfor";
 
     private GetSignInfos() {}
     public static GetSignInfos getInstance() {

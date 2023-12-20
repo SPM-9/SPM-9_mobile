@@ -13,6 +13,7 @@ import com.fxxkywcx.nostudy.Final;
 import com.fxxkywcx.nostudy.R;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.ResourceEntity;
+import com.fxxkywcx.nostudy.utils.FileUtils;
 import com.fxxkywcx.nostudy.utils.ViewUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,6 +59,7 @@ public class ResourceDownloadAdaptor extends RecyclerView.Adapter<ResourceDownlo
         // 绑定数据
         ResourceEntity resourceItemEntity=data.get(position);
         holder.textView_name.setText(resourceItemEntity.getFileName());
+        holder.textView_size.setText(FileUtils.sizeToString(resourceItemEntity.getFileSize(), 2));
     }
 
     @Override

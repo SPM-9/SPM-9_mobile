@@ -150,9 +150,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(mainActivity, ChooseClassActivity.class));
             } else {
                 // 学生端，跳转到签到界面
+                startActivity(new Intent(mainActivity, ClockActivity.class));
             }
         } else {
             // 教师端，跳转到发起签到
+            startActivity(new Intent(mainActivity, UploadSignActivity.class));
         }
     }
 

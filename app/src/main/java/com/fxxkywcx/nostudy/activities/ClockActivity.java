@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.entity.UserSignEntity;
 import com.fxxkywcx.nostudy.entity.UserSignsEntity;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
@@ -59,7 +60,7 @@ public class ClockActivity extends AppCompatActivity {
 //        }
 
         //获取签到
-        UserSignEntity userSign = new UserSignEntity(signId,1,new Date(),null);
+        UserSignEntity userSign = new UserSignEntity(signId, Variable.currentUser.getUid(),new Date(),null);
         //设置handler向服务器发起签到请求，查询是否签到成功
         Handler handler = new Handler(new Handler.Callback() {
             @Override

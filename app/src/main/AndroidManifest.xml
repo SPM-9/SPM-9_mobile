@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+          xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -17,13 +17,17 @@
         android:theme="@style/Theme.NoStudy"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity android:name=".activities.MarkCommitActivity"
-                  android:exported="false"
-                  android:label="批改学习任务"/>
+        <activity
+            android:name=".activities.UploadSignActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activities.MarkCommitActivity"
+            android:exported="false"
+            android:label="批改学习任务"/>
         <activity
             android:name=".activities.Exam.ExamActivity"
             android:exported="false"
-            android:label="考试列表" />
+            android:label="考试列表"/>
         <activity
             android:name=".activities.Homework.HomeworkActivity"
             android:exported="false"
@@ -39,30 +43,30 @@
         <activity
             android:name=".activities.UploadAnnouncementActivity"
             android:exported="false"
-            android:label="发布公告" />
+            android:label="发布公告"/>
         <activity
             android:name=".activities.UploadResourceActivity"
             android:exported="false"
             android:label="上传资源"/>
         <activity
             android:name=".activities.AboutInfoActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".activities.CommitActivity"
             android:exported="false"
-            android:label="提交" />
+            android:label="提交"/>
         <activity
-                android:name=".activities.ClockActivity"
-                android:exported="false"
-                android:label="签到" />
+            android:name=".activities.ClockActivity"
+            android:exported="false"
+            android:label="签到"/>
         <activity
-                android:name=".activities.StudyTaskInfoActivity"
-                android:exported="false"
-                android:label="学习任务详情"/>
+            android:name=".activities.StudyTaskInfoActivity"
+            android:exported="false"
+            android:label="学习任务详情"/>
         <activity
             android:name=".activities.AnnouncementInfoActivity"
             android:exported="false"
-            android:label="公告详情" />
+            android:label="公告详情"/>
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false"
@@ -80,19 +84,19 @@
             android:exported="false"
             android:label="@string/app_name"/>
         <activity
-                android:name=".activities.ResourceDownloadActivity.ResourceDownloadActivity"
-                android:exported="false"
-                android:label="资源下载"/>
+            android:name=".activities.ResourceDownloadActivity.ResourceDownloadActivity"
+            android:exported="false"
+            android:label="资源下载"/>
         <activity
-            android:theme="@style/Theme.NoStudy.NoActionBar"
             android:name=".activities.StartupActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.NoStudy.NoActionBar">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -103,7 +107,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
 

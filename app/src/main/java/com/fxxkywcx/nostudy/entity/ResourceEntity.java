@@ -9,6 +9,7 @@ public class ResourceEntity implements Serializable {
     private String body;
     private String fileName;
     private byte[] file;
+    private long fileSize;
 
     public ResourceEntity() {
     }
@@ -51,6 +52,14 @@ public class ResourceEntity implements Serializable {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
     }
 
     @Override
