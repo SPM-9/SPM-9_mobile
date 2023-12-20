@@ -52,9 +52,13 @@
             android:exported="false"
             android:label="提交" />
         <activity
-            android:name=".activities.StudyTaskInfoActivity"
-            android:exported="false"
-            android:label="学习任务详情" />
+                android:name=".activities.ClockActivity"
+                android:exported="false"
+                android:label="签到" />
+        <activity
+                android:name=".activities.StudyTaskInfoActivity"
+                android:exported="false"
+                android:label="学习任务详情"/>
         <activity
             android:name=".activities.AnnouncementInfoActivity"
             android:exported="false"
