@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fxxkywcx.nostudy.R;
+import com.fxxkywcx.nostudy.Variable;
 import com.fxxkywcx.nostudy.activities.Homework.HomeworkListAdapter;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.network.GetExam;
@@ -61,7 +62,10 @@ public class ExamActivity extends AppCompatActivity {
                 return true;
             }
         });
-        GetExam.getInstance().getLastHomework(handler);
+        if (Variable.currentTeacher != null)
+            GetExam.getInstance().getLastHomework(handler, true);
+        else if (Variable.currentUser != null)
+            GetExam.getInstance().getLastHomework(handler, false);
     }
 
     OnRefreshListener refreshListener=new OnRefreshListener() {
@@ -92,7 +96,10 @@ public class ExamActivity extends AppCompatActivity {
                     return true;
                 }
             });
-            GetExam.getInstance().getLastHomework(handler);
+            if (Variable.currentTeacher != null)
+                GetExam.getInstance().getLastHomework(handler, true);
+            else if (Variable.currentUser != null)
+                GetExam.getInstance().getLastHomework(handler, false);
         }
     };
     OnLoadMoreListener loadMoreListener=new OnLoadMoreListener() {
@@ -123,7 +130,11 @@ public class ExamActivity extends AppCompatActivity {
                 return;
             }
             int lastHomeNotifId=list.get(list.size()-1).getTaskId();
-            GetExam.getInstance().getPreviousHomework(handler,lastHomeNotifId);
+            if (Variable.currentTeacher != null)
+                GetExam.getInstance().getLastHomework(handler, true);
+            else if (Variable.currentUser != null)
+                GetExam.getInstance().getLastHomework(handler, false);
+
         }
     };
 }

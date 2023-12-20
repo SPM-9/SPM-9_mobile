@@ -33,11 +33,12 @@ public class GetExam extends NetworkPackage{
     private static final int loadMoreCount = 3;
     private static final int firstLoadCount = 6;
 
-    public void getLastHomework(Handler handler) {//获取最新的作业列表
+    public void getLastHomework(Handler handler, boolean noMark) {//获取最新的作业列表
         //构建表单请求体
         FormBody body = new FormBody.Builder()
                 .add("operation", "getLast")
                 .add("refreshCount", String.valueOf(firstLoadCount))
+                .add("noMark", String.valueOf(noMark))
                 .build();
         //构建请求
         Request req = new Request.Builder()
@@ -89,11 +90,12 @@ public class GetExam extends NetworkPackage{
             }
         });
     }
-    public void getPreviousHomework(Handler handler, int index) {
+    public void getPreviousHomework(Handler handler, int index, boolean noMark) {
         FormBody body=new FormBody.Builder()
                 .add("operation", "getPrevious")
                 .add("lastIndex", String.valueOf(index))
                 .add("refreshCount", String.valueOf(loadMoreCount))
+                .add("noMark", String.valueOf(noMark))
                 .build();
         Request req=new Request.Builder()
                 .url(url)

@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             // 教师端，跳转到发布作业和考试
-            // TODO: 2023/12/20 发布作业和考试
             startActivity(new Intent(mainActivity, UploadStudyTaskActivity.class));
         }
     }
