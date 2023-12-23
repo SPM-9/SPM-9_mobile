@@ -50,7 +50,7 @@ public class LoginRegister extends NetworkPackage {
                 if (!response.isSuccessful()) {
                     String message = "Request Unsuccessful " + response.code();
                     onFailure(call, new IOException(message));
-                    return; // TODO: 2023/12/4 这是所有的enqueue callback函数都存在的bug，以后有时间再修
+                    return;
                 }
 
                 Message msg = Message.obtain();

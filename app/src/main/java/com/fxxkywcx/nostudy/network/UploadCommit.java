@@ -49,6 +49,7 @@ public class UploadCommit extends NetworkPackage{
                 if (!response.isSuccessful()) {
                     String message = "Request Unsuccessful " + response.code();
                     onFailure(call, new IOException(message));
+                    return;
                 }
 
                 Message msg = Message.obtain();
