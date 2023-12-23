@@ -1,21 +1,20 @@
 package com.fxxkywcx.nostudy.file_io;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
-public class StoreStudyTaskFile extends FileIO{
-    private static StoreStudyTaskFile instance;
-    private StoreStudyTaskFile(Context context) {
+public class StoreDownloadFile extends FileIO{
+    private static StoreDownloadFile instance;
+    private StoreDownloadFile(Context context) {
         super(context);
     }
-    public static StoreStudyTaskFile getInstance(Context context) {
+    public static StoreDownloadFile getInstance(Context context) {
         if (instance == null)
-            instance = new StoreStudyTaskFile(context);
+            instance = new StoreDownloadFile(context);
         return instance;
     }
 

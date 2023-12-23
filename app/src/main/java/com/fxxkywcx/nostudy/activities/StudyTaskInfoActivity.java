@@ -19,7 +19,7 @@ import com.fxxkywcx.nostudy.entity.CommitEntity;
 import com.fxxkywcx.nostudy.entity.NotificationEntity;
 import com.fxxkywcx.nostudy.entity.StudyTaskEntity;
 import com.fxxkywcx.nostudy.file_io.FileIO;
-import com.fxxkywcx.nostudy.file_io.StoreStudyTaskFile;
+import com.fxxkywcx.nostudy.file_io.StoreDownloadFile;
 import com.fxxkywcx.nostudy.network.DownloadStudyTaskFile;
 import com.fxxkywcx.nostudy.network.GetAnnouncementInfos;
 import com.fxxkywcx.nostudy.network.GetCommit;
@@ -213,7 +213,7 @@ public class StudyTaskInfoActivity extends AppCompatActivity {
                     file = task.getFile();
 
                     InternetToasts.DownloadSuccessToast(StudyTaskInfoActivity.this);
-                    StoreStudyTaskFile.getInstance(studyTaskInfoActivity).storeStudyTaskFile(storeHandler, fileName, file);
+                    StoreDownloadFile.getInstance(studyTaskInfoActivity).storeStudyTaskFile(storeHandler, fileName, file);
                 }
 
                 return true;
