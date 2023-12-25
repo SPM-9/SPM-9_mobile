@@ -50,24 +50,33 @@ public class HomeFragment extends Fragment {
     private Animation in_righttoleft;
     private Animation out_righttoleft;
     private final int[] flipperContent = {
-            R.drawable.pic_1,
-            R.drawable.pic_2,
-            R.drawable.pic_3
+//            R.drawable.pic_1,
+//            R.drawable.pic_2,
+//            R.drawable.pic_3
+            R.drawable.pic_4,
+            R.drawable.pic_5,
+            R.drawable.pic_6
     };
     private final int[] flipperContentType = {
+//            IMAGE,
+//            GIF,
+//            IMAGE
             IMAGE,
-            GIF,
+            IMAGE,
             IMAGE
     };
     private final String[] flipperText = {
-            "我超，初音未来！",
-            "原神，启动！",
-            "关注ASOUL喵，关注ASOUL谢谢喵~"
+//            "我超，初音未来！",
+//            "原神，启动！",
+//            "关注ASOUL喵，关注ASOUL谢谢喵~"
+            "给我学项目管理与过程改进！",
+            "想挂科吗？还不快学！",
+            "你怎么睡得着的"
     };
     private final String[] flipperADLink = {
-            "https://space.bilibili.com/399918500?spm_id_from=333.337.0.0",
-            "https://ys.mihoyo.com/",
-            "https://live.bilibili.com/22637261?broadcast_type=0&is_room_feed=1&spm_id_from=333.999.to_liveroom.0.click&live_from=86002"
+            "https://space.bilibili.com/357665034",
+            "https://space.bilibili.com/679237565",
+            "https://space.bilibili.com/95228778"
     };
     Handler nextAD;
 

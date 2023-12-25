@@ -19,11 +19,13 @@ import java.util.TimerTask;
 
 public class StartupActivity extends AppCompatActivity {
     final int[] ad = {
-            R.drawable.ad1,
+//            R.drawable.ad1,
+            R.drawable.ad2
     };
 
     final String[] adJumpURL = {
-            "https://ys.mihoyo.com/",
+//            "https://ys.mihoyo.com/",
+            "https://space.bilibili.com/315966694"
     };
 
     int sel_AD;
